@@ -3,376 +3,585 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indian Salary In-Hand Calculator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Salary Intelligence Pro | India 2026</title>
+    
+    <!-- Premium Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <style>
         :root {
-            --primary-color: #4f46e5;
-            --primary-hover: #4338ca;
-            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            --card-bg: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --success-color: #10b981;
+            /* Fintech Dark Palette - Deep Blue & Slate */
+            --bg-color: #020617;
+            --nav-bg: rgba(2, 6, 23, 0.85);
+            --card-bg: #0f172a;
+            --card-border: #1e293b;
+            --primary: #6366f1;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --error: #ef4444;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
+        [data-theme="light"] {
+            --bg-color: #f8fafc;
+            --nav-bg: rgba(248, 250, 252, 0.85);
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --primary: #4f46e5;
         }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
 
         body {
-            background: var(--bg-gradient);
-            min-height: 100vh;
+            background-color: var(--bg-color);
             color: var(--text-main);
+            transition: var(--transition);
+            min-height: 100vh;
+            padding-bottom: 5rem;
+        }
+
+        /* --- Professional Minimalist Header --- */
+        .navbar {
+            padding: 0.8rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--card-border);
+            background: var(--nav-bg);
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.25rem;
+            letter-spacing: -1px;
+        }
+
+        .brand-logo {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary), #818cf8);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .theme-control {
+            background: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .theme-control:hover { border-color: var(--primary); background: var(--card-border); }
+
+        /* --- Page Layout --- */
+        .main-wrapper {
+            max-width: 1200px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 2.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .main-wrapper { grid-template-columns: 1fr; }
+        }
+
+        /* --- Dashboard Cards --- */
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+        }
+
+        .meta-tag {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1.25rem;
+            display: block;
+        }
+
+        /* --- Inputs --- */
+        .field-group { margin-bottom: 1.5rem; }
+        label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.7rem; color: var(--text-main); }
+        input, select {
+            width: 100%;
+            background: var(--bg-color);
+            border: 1.5px solid var(--card-border);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); }
+
+        /* --- KPI Highlights --- */
+        .kpi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .hero-summary {
+            background: linear-gradient(145deg, var(--primary), #3730a3);
+            color: white;
+            padding: 1.75rem;
+            border-radius: 24px;
+            text-align: center;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 20px;
+            justify-content: center;
         }
+        .hero-value { font-size: 2rem; font-weight: 800; margin: 10px 0; }
+        .hero-label { font-size: 0.8rem; opacity: 0.85; font-weight: 600; text-transform: uppercase; }
 
-        .container {
-            width: 100%;
-            max-width: 900px;
-            margin-top: 40px;
+        /* --- Roadmap Progress --- */
+        .roadmap-item {
+            position: relative;
+            padding-left: 2.5rem;
+            border-left: 2px dashed var(--card-border);
+            padding-bottom: 2.5rem;
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 30px;
+        .roadmap-item:last-child { border-left: none; padding-bottom: 0; }
+        .roadmap-indicator {
+            position: absolute;
+            left: -10px;
+            top: 0;
+            width: 18px;
+            height: 18px;
+            background: var(--card-border);
+            border-radius: 50%;
+            border: 3px solid var(--bg-color);
         }
+        .roadmap-item.active .roadmap-indicator { background: var(--primary); box-shadow: 0 0 15px var(--primary); }
+        .roadmap-item.completed .roadmap-indicator { background: var(--secondary); }
 
-        header h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-
-        header p {
-            color: var(--text-muted);
-        }
-
-        .calculator-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
-
-        @media (max-width: 768px) {
-            .calculator-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--border-color);
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-        }
-
-        input[type="number"], select {
-            width: 100%;
-            padding: 12px;
-            border: 1.5px solid var(--border-color);
+        .status-chip {
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 4px 10px;
             border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.2s;
-            outline: none;
+            background: rgba(255,255,255,0.05);
+            float: right;
         }
 
-        input:focus, select:focus {
-            border-color: var(--primary-color);
-        }
+        .chart-wrap { position: relative; height: 250px; margin-top: 1.5rem; }
 
-        .button-group {
+        /* --- Responsive Utilities --- */
+        .hidden { display: none; }
+        .text-error { color: var(--error); font-weight: 700; font-size: 0.8rem; margin-top: 8px; }
+
+        .toggle-tab {
             display: flex;
-            gap: 12px;
-            margin-top: 10px;
+            background: var(--bg-color);
+            border-radius: 12px;
+            padding: 5px;
+            border: 1px solid var(--card-border);
+            margin-bottom: 1.5rem;
         }
-
-        button {
+        .tab-btn {
             flex: 1;
-            padding: 14px;
+            padding: 8px;
             border: none;
-            border-radius: 8px;
-            font-weight: 600;
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.8rem;
             cursor: pointer;
-            transition: all 0.2s;
-            font-size: 1rem;
+            border-radius: 8px;
         }
-
-        .btn-calculate {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .btn-calculate:hover {
-            background-color: var(--primary-hover);
-        }
-
-        .btn-reset {
-            background-color: #f1f5f9;
-            color: var(--text-muted);
-        }
-
-        .btn-reset:hover {
-            background-color: #e2e8f0;
-        }
-
-        .results-header {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .result-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px dashed var(--border-color);
-        }
-
-        .result-row:last-child {
-            border-bottom: none;
-        }
-
-        .result-label {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .result-value {
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        .highlight-box {
-            background: #f8fafc;
-            border-left: 4px solid var(--primary-color);
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .highlight-box .result-value {
-            font-size: 1.5rem;
-            color: var(--success-color);
-        }
-
-        footer {
-            margin-top: auto;
-            padding: 40px 0 20px;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            text-align: center;
-        }
-
-        .regime-info {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-top: 5px;
-            font-style: italic;
-        }
+        .tab-btn.active { background: var(--primary); color: white; }
     </style>
 </head>
-<body>
+<body data-theme="dark">
 
-    <div class="container">
-        <header>
-            <h1>India Salary Calculator</h1>
-            <p>Calculate your take-home salary for FY 2024-25</p>
-        </header>
+<nav class="navbar">
+    <div class="brand-section">
+        <div class="brand-logo">S</div>
+        SalaryPro Intelligence
+    </div>
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">INDIA FY 2026-27</span>
+        <button class="theme-control" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+            <svg id="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+    </div>
+</nav>
 
-        <div class="calculator-grid">
-            <!-- Input Section -->
-            <div class="card">
-                <div class="input-group">
-                    <label for="ctc">Annual CTC (₹)</label>
-                    <input type="number" id="ctc" placeholder="e.g. 1200000" min="0">
+<div class="main-wrapper">
+    <!-- Left Sidebar: Settings -->
+    <aside>
+        <div class="glass-card">
+            <span class="meta-tag">Identity & Pay</span>
+            <div class="field-group">
+                <label>Annual Cost to Company (CTC) (₹)</label>
+                <input type="number" id="in-ctc" value="1500000" oninput="runIntelligence()">
+            </div>
+            <div class="field-group">
+                <label>Your Age</label>
+                <input type="number" id="in-age" value="28" oninput="runIntelligence()">
+            </div>
+            <div class="field-group">
+                <label>Provident Fund Option</label>
+                <select id="in-pf-mode" onchange="runIntelligence()">
+                    <option value="capped">Standard Capped (₹1,800/mo)</option>
+                    <option value="actual">Actual (12% of Basic Salary)</option>
+                    <option value="none">Opt-out (No Provident Fund)</option>
+                </select>
+                <p style="font-size: 0.7rem; color: var(--text-muted); margin-top: 8px;">Note: Opting out increases in-hand but removes retirement benefits.</p>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <span class="meta-tag">Financial Base</span>
+            <div class="field-group">
+                <label>Total Monthly Expenses (₹)</label>
+                <input type="number" id="in-expenses" value="50000" oninput="runIntelligence()">
+            </div>
+            <div class="field-group">
+                <label>Risk Profile</label>
+                <select id="in-risk" onchange="runIntelligence()">
+                    <option value="Conservative">Conservative (9 Months)</option>
+                    <option value="Balanced" selected>Balanced (6 Months)</option>
+                    <option value="Aggressive">Aggressive (4 Months)</option>
+                </select>
+            </div>
+            <div class="field-group">
+                <label>Existing Emergency Fund (₹)</label>
+                <input type="number" id="in-existing-ef" value="0" oninput="runIntelligence()">
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content: Dashboard -->
+    <main>
+        <div class="kpi-row">
+            <div class="hero-summary">
+                <span class="hero-label">Monthly Take-Home</span>
+                <div class="toggle-tab">
+                    <button class="tab-btn active" id="mode-auto" onclick="setInHandMode('auto')">Auto Estimate</button>
+                    <button class="tab-btn" id="mode-manual" onclick="setInHandMode('manual')">Manual</button>
                 </div>
+                <input type="number" id="manual-input" class="hidden" style="text-align: center; font-size: 1.5rem; font-weight: 800; background: rgba(0,0,0,0.2); border: none; color: white;" oninput="runIntelligence()">
+                <div class="hero-value" id="out-inhand">₹0</div>
+            </div>
 
-                <div class="input-group">
-                    <label for="bonus">Annual Bonus (₹)</label>
-                    <input type="number" id="bonus" placeholder="e.g. 100000" min="0">
-                </div>
+            <div class="glass-card" style="text-align: center; margin-bottom: 0;">
+                <span class="hero-label" style="color: var(--text-muted)">Monthly Savings Capacity</span>
+                <div class="hero-value" id="out-surplus" style="color: var(--secondary)">₹0</div>
+                <div id="surplus-error" class="text-error hidden">Warning: Expenses exceed in-hand salary!</div>
+            </div>
+        </div>
 
-                <div class="input-group">
-                    <label for="regime">Tax Regime</label>
-                    <select id="regime">
-                        <option value="new">New Tax Regime (Default)</option>
-                        <option value="old">Old Tax Regime</option>
-                    </select>
-                    <p class="regime-info" id="regime-note">* New Regime includes ₹75k Standard Deduction.</p>
-                </div>
-
-                <div class="button-group">
-                    <button class="btn-calculate" onclick="calculate()">Calculate</button>
-                    <button class="btn-reset" onclick="resetForm()">Reset</button>
+        <!-- The Roadmap -->
+        <div class="glass-card" style="margin-top: 1.5rem;">
+            <span class="meta-tag">Money Roadmap</span>
+            
+            <div class="roadmap-item" id="phase-1">
+                <div class="roadmap-indicator"></div>
+                <span class="status-chip" id="status-1">ACTIVE</span>
+                <h3>1. Build Emergency Fund</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin: 8px 0 15px;">Secure your lifestyle against job loss or medical shocks.</p>
+                
+                <div class="kpi-row">
+                    <div>
+                        <p class="hero-label" style="color: var(--text-muted)">Target Goal</p>
+                        <p id="out-ef-target" style="font-weight: 700; font-size: 1.1rem;">₹0</p>
+                    </div>
+                    <div>
+                        <p class="hero-label" style="color: var(--text-muted)">Time to Complete</p>
+                        <p id="out-ef-time" style="font-weight: 700; font-size: 1.1rem; color: var(--accent);">0 Months</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Result Section -->
-            <div class="card" id="results-card">
-                <div class="results-header">
-                    <span>Summary</span>
-                    <span id="display-regime" style="font-size: 0.8rem; background: #e0e7ff; padding: 4px 10px; border-radius: 20px;">NEW</span>
+            <div class="roadmap-item" id="phase-2">
+                <div class="roadmap-indicator"></div>
+                <span class="status-chip" id="status-2">LOCKED</span>
+                <h3>2. Insurance & Protection</h3>
+                <div id="content-2" class="hidden" style="background: var(--bg-color); padding: 1.25rem; border-radius: 16px; margin-top: 1rem;">
+                    <p style="font-size: 0.9rem; margin-bottom: 0.6rem;"><strong>Term Life:</strong> <span id="out-term">₹0</span> Coverage</p>
+                    <p style="font-size: 0.9rem;"><strong>Health Policy:</strong> <span id="out-health">₹0</span> Coverage</p>
                 </div>
+            </div>
 
-                <div class="result-row">
-                    <span class="result-label">Gross Annual Salary</span>
-                    <span class="result-value" id="res-gross">₹ 0</span>
-                </div>
-
-                <div class="result-row">
-                    <span class="result-label">EPF Deduction (Annual)</span>
-                    <span class="result-value" id="res-pf">₹ 0</span>
-                </div>
-
-                <div class="result-row">
-                    <span class="result-label">Estimated Yearly Tax</span>
-                    <span class="result-value" id="res-tax">₹ 0</span>
-                </div>
-
-                <div class="result-row">
-                    <span class="result-label">Standard Deduction</span>
-                    <span class="result-value" id="res-sd">₹ 0</span>
-                </div>
-
-                <div class="highlight-box">
-                    <div class="result-label" style="margin-bottom: 5px;">Monthly In-Hand Salary</div>
-                    <div class="result-value" id="res-monthly">₹ 0</div>
+            <div class="roadmap-item" id="phase-3">
+                <div class="roadmap-indicator"></div>
+                <span class="status-chip" id="status-3">LOCKED</span>
+                <h3>3. Wealth Building</h3>
+                <div id="content-3" class="hidden">
+                    <div class="chart-wrap">
+                        <canvas id="investChart"></canvas>
+                    </div>
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <p class="hero-label">Recommended Monthly SIP</p>
+                        <p id="out-sip" style="font-size: 1.6rem; font-weight: 800; color: var(--secondary);">₹0</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <footer>
-        For educational purposes only. Calculations are estimates based on standard assumptions.<br>
-        &copy; 2024 Salary Calculator India
-    </footer>
+        <!-- Analytical Charts -->
+        <div class="kpi-row">
+            <div class="glass-card">
+                <span class="meta-tag">Tax Comparison</span>
+                <div class="chart-wrap" style="height: 200px;">
+                    <canvas id="taxChart"></canvas>
+                </div>
+            </div>
+            <div class="glass-card">
+                <span class="meta-tag">Salary Allocation</span>
+                <div class="chart-wrap" style="height: 200px;">
+                    <canvas id="distChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
 
-    <script>
-        const formatCurrency = (num) => {
-            return "₹ " + new Intl.NumberFormat('en-IN').format(Math.round(num));
-        };
+<script>
+    const CONFIG = {
+        SD_NEW: 75000,
+        SD_OLD: 50000,
+        PF_CEILING: 15000,
+        PTAX: 200,
+        CESS: 0.04
+    };
 
-        function calculate() {
-            const ctc = parseFloat(document.getElementById('ctc').value) || 0;
-            const bonus = parseFloat(document.getElementById('bonus').value) || 0;
-            const regime = document.getElementById('regime').value;
+    let state = {
+        inHandMode: 'auto',
+        theme: 'dark',
+        charts: {}
+    };
 
-            // Basic Assumptions:
-            // 1. Basic Salary = 50% of CTC
-            // 2. EPF = 12% of Basic (capped usually at 1800/mo, but many companies do actual 12%)
-            // Let's use 12% of Basic for this calculator.
-            const basicSalary = ctc * 0.5;
-            const pfDeduction = basicSalary * 0.12;
+    function toggleTheme() {
+        state.theme = state.theme === 'dark' ? 'light' : 'dark';
+        document.body.setAttribute('data-theme', state.theme);
+        const icon = document.getElementById('theme-icon');
+        if(state.theme === 'light') {
+            icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+        } else {
+            icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+        }
+        runIntelligence();
+    }
+
+    function setInHandMode(mode) {
+        state.inHandMode = mode;
+        document.getElementById('mode-auto').classList.toggle('active', mode === 'auto');
+        document.getElementById('mode-manual').classList.toggle('active', mode === 'manual');
+        document.getElementById('out-inhand').classList.toggle('hidden', mode === 'manual');
+        document.getElementById('manual-input').classList.toggle('hidden', mode === 'auto');
+        runIntelligence();
+    }
+
+    function format(n) {
+        return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(n);
+    }
+
+    /**
+     * CORE CALCULATION ENGINE
+     */
+    function runIntelligence() {
+        const ctc = parseFloat(document.getElementById('in-ctc').value) || 0;
+        const age = parseInt(document.getElementById('in-age').value) || 25;
+        const pfMode = document.getElementById('in-pf-mode').value;
+        const expenses = parseFloat(document.getElementById('in-expenses').value) || 0;
+        const risk = document.getElementById('in-risk').value;
+        const existEF = parseFloat(document.getElementById('in-existing-ef').value) || 0;
+
+        // --- 1. Provident Fund Logic ---
+        const monthlyBasic = (ctc / 12) * 0.40;
+        let empPF = 0;
+        let employerPF = 0;
+
+        if (pfMode !== 'none') {
+            const base = pfMode === 'capped' ? Math.min(monthlyBasic, CONFIG.PF_CEILING) : monthlyBasic;
+            empPF = base * 0.12;
+            employerPF = base * 0.12;
+        }
+
+        // Gross Pay is CTC minus Employer side contributions
+        const grossAnnual = (ctc - (employerPF * 12));
+        
+        // --- 2. Tax Logic ---
+        const taxN = calcTax(grossAnnual, 'new');
+        const taxO = calcTax(grossAnnual, 'old');
+        const chosenTax = Math.min(taxN, taxO);
+        
+        const estInHand = (grossAnnual / 12) - empPF - (chosenTax / 12) - CONFIG.PTAX;
+        
+        let inhandVal = estInHand;
+        if(state.inHandMode === 'manual') {
+            inhandVal = parseFloat(document.getElementById('manual-input').value) || 0;
+        } else {
+            document.getElementById('out-inhand').innerText = format(estInHand);
+            document.getElementById('manual-input').value = Math.round(estInHand);
+        }
+
+        const surplus = inhandVal - expenses;
+        document.getElementById('out-surplus').innerText = format(surplus);
+        document.getElementById('surplus-error').classList.toggle('hidden', surplus >= 0);
+
+        // --- 3. Roadmap Engine ---
+        const roadmap = computeRoadmap(surplus, expenses, risk, existEF, age, ctc);
+        renderRoadmap(roadmap);
+        renderCharts(inhandVal, empPF, chosenTax, taxN, taxO, roadmap);
+    }
+
+    function calcTax(income, regime) {
+        let sd = regime === 'new' ? CONFIG.SD_NEW : CONFIG.SD_OLD;
+        let taxable = Math.max(0, income - sd);
+        let tax = 0;
+
+        if (regime === 'new') {
+            if (taxable <= 1200000) return 0; // 2026 Budget Rebate Logic
+            if (taxable > 1500000) tax = (taxable - 1500000) * 0.3 + 150000;
+            else if (taxable > 1200000) tax = (taxable - 1200000) * 0.2 + 90000;
+            else if (taxable > 1000000) tax = (taxable - 1000000) * 0.15 + 60000;
+            else if (taxable > 700000) tax = (taxable - 700000) * 0.1 + 20000;
+            else if (taxable > 300000) tax = (taxable - 300000) * 0.05;
+        } else {
+            taxable -= 150000; // 80C Deduction for Old Regime
+            if (taxable <= 500000) return 0;
+            if (taxable > 1000000) tax = (taxable - 1000000) * 0.3 + 112500;
+            else if (taxable > 500000) tax = (taxable - 500000) * 0.2 + 12500;
+            else if (taxable > 250000) tax = (taxable - 250000) * 0.05;
+        }
+        return tax * (1 + CONFIG.CESS);
+    }
+
+    function computeRoadmap(surplus, exp, risk, existEF, age, ctc) {
+        const mult = { 'Conservative': 9, 'Balanced': 6, 'Aggressive': 4 };
+        const target = exp * mult[risk];
+        const remaining = Math.max(0, target - existEF);
+        const monthlySave = remaining > 0 ? (surplus > 0 ? surplus * 0.6 : 0) : 0;
+        
+        const term = Math.max(ctc * 10, exp * 12 * 15);
+        let health = 1000000;
+        if(age > 30) health = 1500000;
+        if(age > 45) health = 2000000;
+
+        const investAmt = remaining === 0 ? Math.max(0, surplus * 0.9) : 0;
+        let eq = 100 - age;
+        if(risk === 'Aggressive') eq += 10;
+        if(risk === 'Conservative') eq -= 10;
+        eq = Math.min(Math.max(eq, 20), 90);
+
+        return { target, remaining, months: monthlySave > 0 ? Math.ceil(remaining/monthlySave) : 0, term, health, investAmt, eq };
+    }
+
+    function renderRoadmap(r) {
+        document.getElementById('out-ef-target').innerText = format(r.target);
+        document.getElementById('out-ef-time').innerText = r.months + " Months";
+
+        const p1 = document.getElementById('phase-1');
+        const p2 = document.getElementById('phase-2');
+        const p3 = document.getElementById('phase-3');
+
+        if(r.remaining > 0) {
+            p1.className = "roadmap-item active";
+            document.getElementById('status-1').innerText = "ACTIVE";
+            p2.className = "roadmap-item locked";
+            p3.className = "roadmap-item locked";
+            document.getElementById('content-2').classList.add('hidden');
+            document.getElementById('content-3').classList.add('hidden');
+        } else {
+            p1.className = "roadmap-item completed";
+            document.getElementById('status-1').innerText = "DONE";
+            p2.className = "roadmap-item active";
+            document.getElementById('status-2').innerText = "ACTION";
+            document.getElementById('status-2').style.background = "var(--accent)";
+            document.getElementById('content-2').classList.remove('hidden');
+            document.getElementById('out-term').innerText = format(r.term);
+            document.getElementById('out-health').innerText = format(r.health);
             
-            let standardDeduction = 0;
-            let taxableIncome = 0;
-            let tax = 0;
-
-            if (regime === 'new') {
-                standardDeduction = 75000;
-                taxableIncome = Math.max(0, ctc - standardDeduction);
-                tax = calculateNewRegimeTax(taxableIncome);
-                document.getElementById('display-regime').innerText = "NEW REGIME";
-            } else {
-                standardDeduction = 50000;
-                // For old regime, we also subtract PF from taxable income (under 80C)
-                // Assuming no other deductions like HRA, 80D for simplicity
-                taxableIncome = Math.max(0, ctc - standardDeduction - Math.min(pfDeduction, 150000));
-                tax = calculateOldRegimeTax(taxableIncome);
-                document.getElementById('display-regime').innerText = "OLD REGIME";
-            }
-
-            const yearlyTakeHome = ctc - pfDeduction - tax;
-            const monthlyInHand = yearlyTakeHome / 12;
-
-            // Update UI
-            document.getElementById('res-gross').innerText = formatCurrency(ctc);
-            document.getElementById('res-pf').innerText = formatCurrency(pfDeduction);
-            document.getElementById('res-tax').innerText = formatCurrency(tax);
-            document.getElementById('res-sd').innerText = formatCurrency(standardDeduction);
-            document.getElementById('res-monthly').innerText = formatCurrency(monthlyInHand);
+            p3.className = "roadmap-item active";
+            document.getElementById('status-3').innerText = "INVEST";
+            document.getElementById('status-3').style.background = "var(--secondary)";
+            document.getElementById('content-3').classList.remove('hidden');
+            document.getElementById('out-sip').innerText = format(r.investAmt);
         }
+    }
 
-        function calculateNewRegimeTax(income) {
-            // Updated Slabs FY 2024-25 (Budget July 2024)
-            // 0-3L: Nil
-            // 3-7L: 5%
-            // 7-10L: 10%
-            // 10-12L: 15%
-            // 12-15L: 20%
-            // Above 15L: 30%
-            
-            // Tax Rebate Section 87A: Taxable income up to 7L = 0 tax
-            if (income <= 700000) return 0;
-
-            let tax = 0;
-            if (income > 1500000) tax += (income - 1500000) * 0.30 + 150000;
-            else if (income > 1200000) tax += (income - 1200000) * 0.20 + 90000;
-            else if (income > 1000000) tax += (income - 1000000) * 0.15 + 60000;
-            else if (income > 700000) tax += (income - 700000) * 0.10 + 20000;
-            else if (income > 300000) tax += (income - 300000) * 0.05;
-
-            return tax + (tax * 0.04); // Including 4% Cess
-        }
-
-        function calculateOldRegimeTax(income) {
-            // Slabs: 0-2.5L Nil, 2.5-5L 5%, 5-10L 20%, 10L+ 30%
-            // Rebate up to 5L
-            if (income <= 500000) return 0;
-
-            let tax = 0;
-            if (income > 1000000) tax += (income - 1000000) * 0.30 + 112500;
-            else if (income > 500000) tax += (income - 500000) * 0.20 + 12500;
-            else if (income > 250000) tax += (income - 250000) * 0.05;
-
-            return tax + (tax * 0.04); // Including 4% Cess
-        }
-
-        function resetForm() {
-            document.getElementById('ctc').value = '';
-            document.getElementById('bonus').value = '';
-            document.getElementById('regime').value = 'new';
-            document.getElementById('res-gross').innerText = '₹ 0';
-            document.getElementById('res-pf').innerText = '₹ 0';
-            document.getElementById('res-tax').innerText = '₹ 0';
-            document.getElementById('res-sd').innerText = '₹ 0';
-            document.getElementById('res-monthly').innerText = '₹ 0';
-        }
-
-        // Listener to update note based on regime
-        document.getElementById('regime').addEventListener('change', function() {
-            const note = document.getElementById('regime-note');
-            if(this.value === 'new') {
-                note.innerText = "* New Regime includes ₹75k Standard Deduction.";
-            } else {
-                note.innerText = "* Old Regime includes ₹50k Standard Deduction and basic PF deduction (80C).";
+    function renderCharts(inhand, pf, tax, tN, tO, r) {
+        const textCol = state.theme === 'dark' ? '#94a3b8' : '#64748b';
+        
+        if(state.charts.tax) state.charts.tax.destroy();
+        state.charts.tax = new Chart(document.getElementById('taxChart'), {
+            type: 'bar',
+            data: {
+                labels: ['New', 'Old'],
+                datasets: [{
+                    data: [tN, tO],
+                    backgroundColor: [tN <= tO ? '#6366f1' : '#1e293b', tO < tN ? '#6366f1' : '#1e293b']
+                }]
+            },
+            options: { 
+                plugins: { legend: { display: false } }, 
+                scales: { y: { display: false }, x: { grid: { display: false }, ticks: { color: textCol } } } 
             }
         });
-    </script>
+
+        if(state.charts.dist) state.charts.dist.destroy();
+        state.charts.dist = new Chart(document.getElementById('distChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['In-Hand', 'Tax', 'PF'],
+                datasets: [{
+                    data: [inhand, tax/12, pf],
+                    backgroundColor: ['#10b981', '#ef4444', '#6366f1'],
+                    borderWidth: 0
+                }]
+            },
+            options: { cutout: '75%', plugins: { legend: { position: 'bottom', labels: { color: textCol, boxWidth: 10 } } } }
+        });
+
+        if(state.charts.inv) state.charts.inv.destroy();
+        state.charts.inv = new Chart(document.getElementById('investChart'), {
+            type: 'pie',
+            data: {
+                labels: ['Equity', 'Debt'],
+                datasets: [{
+                    data: [r.eq, 100 - r.eq],
+                    backgroundColor: ['#6366f1', '#1e293b'],
+                    borderWidth: 0
+                }]
+            },
+            options: { plugins: { legend: { position: 'right', labels: { color: textCol } } } }
+        });
+    }
+
+    window.onload = runIntelligence;
+</script>
 </body>
 </html>
