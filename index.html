@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SalaryPro Intelligence | India FY 2026-27 Take-Home Calculator</title>
-    <meta name="description" content="Calculate your monthly take-home salary for FY 2026-27. Understand CTC vs In-hand, PF options, and build a personalized money roadmap for India.">
     
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Calculate your monthly take-home salary for FY 2026-27 in India. Accurate CTC to In-hand calculator with PF options, tax regime comparison, and a personalized money roadmap.">
+    <meta name="keywords" content="salary calculator india 2026, take home salary calculator, ctc to inhand calculator, provident fund calculator, new tax regime vs old regime, emergency fund india">
+    <link rel="canonical" href="https://yourdomain.com/" />
+
     <!-- Premium Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Chart.js -->
@@ -195,7 +199,7 @@
         .chart-wrap { position: relative; height: 250px; margin-top: 1.5rem; }
 
         /* --- Responsive Utilities --- */
-        .hidden { display: none; }
+        .hidden { display: none !important; }
         .text-error { color: var(--error); font-weight: 700; font-size: 0.8rem; margin-top: 8px; }
 
         .toggle-tab {
@@ -219,22 +223,23 @@
         }
         .tab-btn.active { background: var(--primary); color: white; }
 
-        /* --- SEO Section Styles --- */
-        .seo-section {
-            max-width: 1000px;
+        /* --- SEO SECTION STYLING --- */
+        .seo-content-section {
+            max-width: 1100px;
             margin: 4rem auto;
             padding: 0 1.5rem;
             line-height: 1.8;
             color: var(--text-main);
         }
-        .seo-section h2 { font-size: 2rem; margin: 2.5rem 0 1.5rem; color: var(--primary); font-weight: 800; }
-        .seo-section h3 { font-size: 1.5rem; margin: 2rem 0 1rem; color: var(--text-main); font-weight: 700; border-left: 4px solid var(--primary); padding-left: 15px; }
-        .seo-section p { margin-bottom: 1.2rem; color: var(--text-muted); font-size: 1.05rem; }
-        .seo-section ul { margin-bottom: 1.5rem; padding-left: 1.5rem; }
-        .seo-section li { margin-bottom: 0.8rem; color: var(--text-muted); }
-        .faq-item { background: var(--card-bg); border: 1px solid var(--card-border); padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem; }
-        .faq-question { font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; display: block; }
-        .disclaimer-box { font-size: 0.85rem; color: var(--text-muted); padding: 2rem; border-top: 1px solid var(--card-border); margin-top: 3rem; text-align: center; font-style: italic; }
+        .seo-content-section h2 { font-size: 2.2rem; margin: 3rem 0 1.5rem; color: var(--primary); font-weight: 800; letter-spacing: -0.5px; }
+        .seo-content-section h3 { font-size: 1.6rem; margin: 2rem 0 1rem; font-weight: 700; border-left: 5px solid var(--primary); padding-left: 15px; }
+        .seo-content-section p { margin-bottom: 1.5rem; color: var(--text-muted); font-size: 1.1rem; }
+        .seo-content-section ul { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+        .seo-content-section li { margin-bottom: 0.8rem; color: var(--text-muted); font-size: 1.1rem; }
+        .faq-container { margin-top: 3rem; }
+        .faq-card { background: var(--card-bg); border: 1px solid var(--card-border); padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem; }
+        .faq-card strong { display: block; margin-bottom: 0.5rem; color: var(--text-main); font-size: 1.1rem; }
+        .disclaimer-footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 3rem 0; border-top: 1px solid var(--card-border); font-style: italic; }
     </style>
 </head>
 <body data-theme="dark">
@@ -261,15 +266,15 @@
             <span class="meta-tag">Identity & Pay</span>
             <div class="field-group">
                 <label>Annual Cost to Company (CTC) (₹)</label>
-                <input type="number" id="in-ctc" value="1500000" oninput="runIntelligence()">
+                <input type="number" id="in-ctc" value="1500000">
             </div>
             <div class="field-group">
                 <label>Your Age</label>
-                <input type="number" id="in-age" value="28" oninput="runIntelligence()">
+                <input type="number" id="in-age" value="28">
             </div>
             <div class="field-group">
                 <label>Provident Fund Option</label>
-                <select id="in-pf-mode" onchange="runIntelligence()">
+                <select id="in-pf-mode">
                     <option value="capped">Standard Capped (₹1,800/mo)</option>
                     <option value="actual">Actual (12% of Basic Salary)</option>
                     <option value="none">Opt-out (No Provident Fund)</option>
@@ -282,11 +287,11 @@
             <span class="meta-tag">Financial Base</span>
             <div class="field-group">
                 <label>Total Monthly Expenses (₹)</label>
-                <input type="number" id="in-expenses" value="50000" oninput="runIntelligence()">
+                <input type="number" id="in-expenses" value="50000">
             </div>
             <div class="field-group">
                 <label>Risk Profile</label>
-                <select id="in-risk" onchange="runIntelligence()">
+                <select id="in-risk">
                     <option value="Conservative">Conservative (9 Months)</option>
                     <option value="Balanced" selected>Balanced (6 Months)</option>
                     <option value="Aggressive">Aggressive (4 Months)</option>
@@ -294,7 +299,7 @@
             </div>
             <div class="field-group">
                 <label>Existing Emergency Fund (₹)</label>
-                <input type="number" id="in-existing-ef" value="0" oninput="runIntelligence()">
+                <input type="number" id="in-existing-ef" value="0">
             </div>
         </div>
     </aside>
@@ -308,7 +313,7 @@
                     <button class="tab-btn active" id="mode-auto" onclick="setInHandMode('auto')">Auto Estimate</button>
                     <button class="tab-btn" id="mode-manual" onclick="setInHandMode('manual')">Manual</button>
                 </div>
-                <input type="number" id="manual-input" class="hidden" style="text-align: center; font-size: 1.5rem; font-weight: 800; background: rgba(0,0,0,0.2); border: none; color: white;" oninput="runIntelligence()">
+                <input type="number" id="manual-input" class="hidden" style="text-align: center; font-size: 1.5rem; font-weight: 800; background: rgba(0,0,0,0.2); border: none; color: white;">
                 <div class="hero-value" id="out-inhand">₹0</div>
             </div>
 
@@ -385,97 +390,100 @@
     </main>
 </div>
 
-<!-- SEO Content Section -->
-<section class="seo-section">
-    <h2>Understanding Your Salary in India: A Comprehensive Guide for FY 2026-27</h2>
-    <p>Navigating the world of Indian salaries can be confusing. From the massive "Annual Cost to Company" (CTC) figure mentioned in your offer letter to the actual amount that hits your bank account every month, there is often a significant gap. This guide explains why that gap exists and how you can use the SalaryPro Intelligence tool to plan your financial future.</p>
+<!-- BEGIN SEO SECTION -->
+<section class="seo-content-section">
+    <h2>Navigating the Indian Salary Landscape: A Guide for FY 2026-27</h2>
+    <p>Understanding your salary structure in India has never been more vital. With the financial landscape evolving and the 2026-27 budget updates in place, many Indian professionals find themselves staring at a significant gap between their Annual CTC (Cost to Company) and the actual "Take-home" salary that hits their bank account. This guide decodes the intelligence behind your paycheck and provides a roadmap for wealth building.</p>
 
-    <h3>CTC vs. Take-Home Salary: Decoding the "In-Hand" Surprise</h3>
-    <p>In simple terms, CTC is what your employer spends on you, while Take-Home (or In-Hand) is what you actually get. Your CTC includes many components you never see as cash, such as the company's contribution to your Provident Fund, Gratuity, and even the cost of office space or insurance premiums in some cases.</p>
-    <p>To calculate your monthly take-home salary, you must subtract all mandatory deductions from your Gross Salary. Our tool automates this by looking at the specific rules for the 2026-27 financial year, ensuring you aren't surprised when your first paycheck arrives.</p>
+    <h3>What is CTC vs Take-Home Salary?</h3>
+    <p>The term <strong>CTC (Cost to Company)</strong> represents the total annual expenditure an employer incurs on an employee. It includes your basic salary, allowances, and various non-cash benefits like Employer Provident Fund (PF) contributions, Gratuity, and insurance premiums. <strong>Take-home salary</strong> (or in-hand salary) is what remains after mandatory deductions such as Income Tax (TDS), Employee PF, and Professional Tax are subtracted from your gross earnings. Our SalaryPro Intelligence tool helps you bridge this gap by calculating these components in real-time.</p>
 
     <h3>Common Salary Deductions in India</h3>
-    <p>When you look at your payslip, you will notice several standard deductions:</p>
+    <p>Every Indian payslip typically contains three primary deductions:</p>
     <ul>
-        <li><strong>Provident Fund (PF):</strong> A retirement savings scheme where both you and your employer contribute.</li>
-        <li><strong>Income Tax (TDS):</strong> Tax deducted at source based on your chosen tax regime and income level.</li>
-        <li><strong>Professional Tax (PT):</strong> A small monthly tax (usually ₹200) levied by state governments.</li>
+        <li><strong>Provident Fund (PF):</strong> A government-backed retirement scheme where usually 12% of your basic salary is contributed.</li>
+        <li><strong>Professional Tax (PT):</strong> A minor state-level tax, typically capped at ₹200–₹300 per month depending on your state.</li>
+        <li><strong>Income Tax (TDS):</strong> Tax Deducted at Source based on the slab rates of your chosen tax regime.</li>
     </ul>
 
-    <h3>How to Choose Your PF Option: Capped vs. Actual vs. None</h3>
-    <p>Choosing the right Provident Fund (PF) strategy can change your monthly liquidity. Here is a simple breakdown of the options available in our calculator:</p>
+    <h3>How to Choose Your PF Option: Capped vs Actual vs Opt-out</h3>
+    <p>One of the unique features of our intelligence platform is the ability to choose your PF mode. This decision significantly impacts your monthly liquidity:</p>
     <ul>
-        <li><strong>Standard Capped (₹1,800/mo):</strong> This limits your contribution to the government-mandated minimum. It gives you more cash in hand every month while still maintaining a basic retirement fund.</li>
-        <li><strong>Actual (12% of Basic):</strong> This maximizes your retirement savings. While it reduces your monthly take-home, it builds a much larger nest egg for the long term due to the power of compounding.</li>
-        <li><strong>Opt-out (None):</strong> Some employees can choose not to participate in PF (depending on salary limits and employer policy). This maximizes your current take-home pay but means you must be disciplined enough to invest for retirement on your own.</li>
+        <li><strong>Standard Capped (₹1,800/mo):</strong> This limits your contribution to the statutory minimum based on a ₹15,000 wage ceiling. This is the best option for those who need higher monthly cash flow for EMIs or immediate expenses.</li>
+        <li><strong>Actual (12% of Basic):</strong> This maximizes your retirement savings. While it reduces your current take-home pay, the long-term compounding of a larger PF corpus (with tax-free interest) is a powerful wealth-builder.</li>
+        <li><strong>Opt-out (No PF):</strong> Available to some employees at the start of their career if they earn above a certain basic pay threshold. It offers maximum monthly cash but requires high self-discipline to invest for retirement elsewhere.</li>
     </ul>
 
-    <h3>Why Expense Tracking is the Secret to Wealth</h3>
-    <p>Financial intelligence starts with knowing where your money goes. By entering your "Total Monthly Expenses" in our tool, you unlock the "Savings Capacity" insight. Savings isn't what is left over after spending; rather, spending should be what is left over after saving. Tracking your expenses helps you identify if you are living beyond your means or if you have the potential to build wealth faster.</p>
+    <h3>Why Expense Tracking and Savings Capacity Matter</h3>
+    <p>Financial freedom isn't about how much you earn; it's about your <strong>Savings Capacity</strong>. Our platform requires you to enter your monthly expenses because wealth building only starts with the "surplus" (Monthly In-hand minus Monthly Expenses). By tracking your rent, groceries, and lifestyle costs, you can objectively see if you are living within your means or if you need to optimize your spending to reach your goals faster.</p>
 
-    <h3>The Importance of an Emergency Fund</h3>
-    <p>Before you invest a single rupee in the stock market, you must have an Emergency Fund. This is money kept aside specifically for unexpected life events like job loss, medical emergencies, or urgent house repairs. Based on your risk profile, we recommend different targets:</p>
+    <h3>The 4/6/9 Emergency Fund Rule</h3>
+    <p>An Emergency Fund is the bedrock of financial security. It protects you from job loss, medical emergencies, or unplanned house repairs. Based on your risk profile, we recommend the following liquid reserves:</p>
     <ul>
-        <li><strong>Aggressive:</strong> 4 months of expenses (If you have high job security and low liabilities).</li>
-        <li><strong>Balanced:</strong> 6 months of expenses (The golden standard for most Indian professionals).</li>
-        <li><strong>Conservative:</strong> 9 months of expenses (If you are the sole breadwinner or have irregular income).</li>
+        <li><strong>Aggressive (4 Months):</strong> Suited for young professionals in stable tech jobs with no dependents.</li>
+        <li><strong>Balanced (6 Months):</strong> The standard recommendation for most Indian households.</li>
+        <li><strong>Conservative (9 Months):</strong> Necessary if you have high debt (like a home loan), multiple dependents, or work in a volatile industry.</li>
     </ul>
 
-    <h3>Insurance Basics: Protecting Your Roadmap</h3>
-    <p>Once your Emergency Fund is ready, the next step in the Roadmap is Protection. We focus on two types:</p>
+    <h3>Insurance Basics for Beginners</h3>
+    <p>Phase 2 of the SalaryPro roadmap focuses on Protection. Before investing in the stock market, ensure you have:</p>
     <ul>
-        <li><strong>Term Life Insurance:</strong> This provides a massive payout to your family if you are no longer around. A good rule of thumb is 10 to 15 times your annual expenses.</li>
-        <li><strong>Health Insurance:</strong> Medical costs in India are rising fast. Even if your employer provides insurance, having a personal policy ensures you are covered even during job transitions.</li>
+        <li><strong>Term Life Insurance:</strong> A pure protection cover that provides 10-15x your annual income to your family in your absence.</li>
+        <li><strong>Health Insurance:</strong> While most employers provide health cover, having a personal policy is essential to stay protected during job switches or if your employer reduces benefits.</li>
     </ul>
 
-    <h3>Wealth Building: The Final Step</h3>
-    <p>The goal of our Roadmap is to get you to Phase 3: Wealth Building. This is where your money starts working for you. Depending on your age and risk preference, we suggest a split between Equity (high growth, higher risk) and Debt (stable growth, lower risk). Starting a Monthly SIP (Systematic Investment Plan) is the most beginner-friendly way to participate in India's economic growth.</p>
+    <h3>Wealth Building: Asset Allocation by Age</h3>
+    <p>Once your safety net is ready, you enter Phase 3: Wealth Building. The "SIP" (Systematic Investment Plan) is the most effective tool for Indian investors. We recommend a split between Equity (Nifty 50 Index funds, Flexicap funds) and Debt (PPF, Liquid funds) based on your age and risk preference. A common rule is "100 minus your age" in equity, but our tool adjusts this based on your specific risk profile to maximize returns while maintaining peace of mind.</p>
 
-    <div class="faq-item">
-        <span class="faq-question">1. Is the New Tax Regime better for 2026-27?</span>
-        <p>Generally, for salaried individuals with fewer deductions, the New Regime is more beneficial due to lower tax rates and a higher rebate limit. Our chart helps you compare both instantly.</p>
-    </div>
-    <div class="faq-item">
-        <span class="faq-question">2. Can I change my PF option in the middle of the year?</span>
-        <p>Usually, PF options are set at the beginning of the financial year or when joining a company. Check with your HR for specific company policies.</p>
-    </div>
-    <div class="faq-item">
-        <span class="faq-question">3. Why is my in-hand salary lower than CTC / 12?</span>
-        <p>Because CTC includes non-cash components like employer PF and annual taxes that are deducted before the money reaches you.</p>
-    </div>
-    <div class="faq-item">
-        <span class="faq-question">4. Where should I keep my Emergency Fund?</span>
-        <p>Keep it in a high-interest savings account or a liquid fund where you can access it within 24 hours.</p>
-    </div>
-    <div class="faq-item">
-        <span class="faq-question">5. Is ₹200 Professional Tax applicable everywhere?</span>
-        <p>It varies by state, but most major states like Maharashtra, Karnataka, and Tamil Nadu levy a similar small monthly amount.</p>
-    </div>
-    <div class="faq-item">
-        <span class="faq-question">6. What is the Standard Deduction?</span>
-        <p>It is a flat deduction of ₹75,000 (New Regime) or ₹50,000 (Old Regime) available to all salaried employees to reduce taxable income.</p>
-    </div>
-    <div class="faq-item">
-        <span class="faq-question">7. Should I invest in NPS?</span>
-        <p>NPS is great for long-term retirement and offers additional tax benefits under the Old Regime, but it has lock-in periods until age 60.</p>
-    </div>
-    <div class="faq-item">
-        <span class="faq-question">8. What is Section 87A?</span>
-        <p>It is a tax rebate that makes your tax zero if your total taxable income is below a certain threshold (like ₹12 Lakhs in the New Regime).</p>
-    </div>
-    <div class="faq-item">
-        <span class="faq-question">9. How much Health Insurance is enough?</span>
-        <p>For a young adult, ₹10 Lakhs is a good start. For families with elders, consider ₹20 Lakhs or more with a super top-up.</p>
-    </div>
-    <div class="faq-item">
-        <span class="faq-question">10. Can I trust this calculator for official use?</span>
-        <p>This tool provides high-accuracy estimates based on current laws, but always consult a professional CA or financial advisor for official tax filings.</p>
+    <div class="faq-container">
+        <h2>Frequently Asked Questions (FAQs)</h2>
+        <div class="faq-card">
+            <strong>1. Is the New Tax Regime better for 2026-27?</strong>
+            Generally, for salaried individuals with few deductions, the New Regime is more beneficial due to lower tax rates and higher rebate limits.
+        </div>
+        <div class="faq-card">
+            <strong>2. Can I change my PF option mid-year?</strong>
+            Usually, PF options are fixed at the start of the financial year or upon joining a new company. Consult your HR for specific company policies.
+        </div>
+        <div class="faq-card">
+            <strong>3. Why is my in-hand salary much lower than my CTC?</strong>
+            This is due to "Employer PF" and "Gratuity" which are part of CTC but are non-cash components, alongside TDS and your own PF contribution.
+        </div>
+        <div class="faq-card">
+            <strong>4. What is the Standard Deduction for FY 2026-27?</strong>
+            It is a flat deduction (currently ₹75,000 for New Regime) available to reduce your taxable income.
+        </div>
+        <div class="faq-card">
+            <strong>5. Where should I keep my Emergency Fund?</strong>
+            Keep it in a high-interest savings account or a Liquid Mutual Fund where you can access it within 24 hours.
+        </div>
+        <div class="faq-card">
+            <strong>6. How is "Basic Salary" calculated?</strong>
+            Most Indian companies set the basic salary at 40% to 50% of the total Annual CTC.
+        </div>
+        <div class="faq-card">
+            <strong>7. Should I choose the "Actual" PF mode?</strong>
+            Yes, if you want a large, tax-efficient retirement corpus. Compounding interest on PF is historically higher than many savings accounts.
+        </div>
+        <div class="faq-card">
+            <strong>8. Is ₹200 Professional Tax mandatory?</strong>
+            Yes, in states where it applies, it is a mandatory monthly deduction for salaried employees.
+        </div>
+        <div class="faq-card">
+            <strong>9. How much health insurance coverage do I need?</strong>
+            For a young family, a base plan of ₹10 Lakhs with a "Super Top-up" of ₹20-50 Lakhs is the current recommended gold standard in India.
+        </div>
+        <div class="faq-card">
+            <strong>10. Can I trust this calculator for official tax filing?</strong>
+            This tool provides high-accuracy estimates based on current laws, but you should always consult a Chartered Accountant for final filings.
+        </div>
     </div>
 
-    <div class="disclaimer-box">
-        Disclaimer: These are educational estimates only. Actual salary components, deductions, and tax liabilities vary significantly based on specific employer policies, state laws, and individual financial declarations.
+    <div class="disclaimer-footer">
+        Educational estimates only; actual salary varies by employer policies and specific tax laws.
     </div>
 </section>
+<!-- END SEO SECTION -->
 
 <script>
     const CONFIG = {
@@ -539,14 +547,10 @@
             employerPF = base * 0.12;
         }
 
-        // Gross Pay is CTC minus Employer side contributions
         const grossAnnual = (ctc - (employerPF * 12));
-        
-        // --- 2. Tax Logic ---
         const taxN = calcTax(grossAnnual, 'new');
         const taxO = calcTax(grossAnnual, 'old');
         const chosenTax = Math.min(taxN, taxO);
-        
         const estInHand = (grossAnnual / 12) - empPF - (chosenTax / 12) - CONFIG.PTAX;
         
         let inhandVal = estInHand;
@@ -561,7 +565,6 @@
         document.getElementById('out-surplus').innerText = format(surplus);
         document.getElementById('surplus-error').classList.toggle('hidden', surplus >= 0);
 
-        // --- 3. Roadmap Engine ---
         const roadmap = computeRoadmap(surplus, expenses, risk, existEF, age, ctc);
         renderRoadmap(roadmap);
         renderCharts(inhandVal, empPF, chosenTax, taxN, taxO, roadmap);
@@ -689,6 +692,12 @@
             options: { plugins: { legend: { position: 'right', labels: { color: textCol } } } }
         });
     }
+
+    // REACTIVITY SCRIPT: Attach listeners to all inputs for real-time updates
+    const inputs = document.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        input.addEventListener('input', runIntelligence);
+    });
 
     window.onload = runIntelligence;
 </script>
