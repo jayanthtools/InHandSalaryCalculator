@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Salary In-Hand Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--text-muted);
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 12px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary-color);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+
+        .btn-calculate {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-calculate:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-reset {
+            background-color: #f1f5f9;
+            color: var(--text-muted);
+        }
+
+        .btn-reset:hover {
+            background-color: #e2e8f0;
+        }
+
+        .results-header {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .result-value {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .highlight-box {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box .result-value {
+            font-size: 1.5rem;
+            color: var(--success-color);
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 40px 0 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .regime-info {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>India Salary Calculator</h1>
+            <p>Calculate your take-home salary for FY 2024-25</p>
+        </header>
+
+        <div class="calculator-grid">
+            <!-- Input Section -->
+            <div class="card">
+                <div class="input-group">
+                    <label for="ctc">Annual CTC (₹)</label>
+                    <input type="number" id="ctc" placeholder="e.g. 1200000" min="0">
+                </div>
+
+                <div class="input-group">
+                    <label for="bonus">Annual Bonus (₹)</label>
+                    <input type="number" id="bonus" placeholder="e.g. 100000" min="0">
+                </div>
+
+                <div class="input-group">
+                    <label for="regime">Tax Regime</label>
+                    <select id="regime">
+                        <option value="new">New Tax Regime (Default)</option>
+                        <option value="old">Old Tax Regime</option>
+                    </select>
+                    <p class="regime-info" id="regime-note">* New Regime includes ₹75k Standard Deduction.</p>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-calculate" onclick="calculate()">Calculate</button>
+                    <button class="btn-reset" onclick="resetForm()">Reset</button>
+                </div>
+            </div>
+
+            <!-- Result Section -->
+            <div class="card" id="results-card">
+                <div class="results-header">
+                    <span>Summary</span>
+                    <span id="display-regime" style="font-size: 0.8rem; background: #e0e7ff; padding: 4px 10px; border-radius: 20px;">NEW</span>
+                </div>
+
+                <div class="result-row">
+                    <span class="result-label">Gross Annual Salary</span>
+                    <span class="result-value" id="res-gross">₹ 0</span>
+                </div>
+
+                <div class="result-row">
+                    <span class="result-label">EPF Deduction (Annual)</span>
+                    <span class="result-value" id="res-pf">₹ 0</span>
+                </div>
+
+                <div class="result-row">
+                    <span class="result-label">Estimated Yearly Tax</span>
+                    <span class="result-value" id="res-tax">₹ 0</span>
+                </div>
+
+                <div class="result-row">
+                    <span class="result-label">Standard Deduction</span>
+                    <span class="result-value" id="res-sd">₹ 0</span>
+                </div>
+
+                <div class="highlight-box">
+                    <div class="result-label" style="margin-bottom: 5px;">Monthly In-Hand Salary</div>
+                    <div class="result-value" id="res-monthly">₹ 0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        For educational purposes only. Calculations are estimates based on standard assumptions.<br>
+        &copy; 2024 Salary Calculator India
+    </footer>
+
+    <script>
+        const formatCurrency = (num) => {
+            return "₹ " + new Intl.NumberFormat('en-IN').format(Math.round(num));
+        };
+
+        function calculate() {
+            const ctc = parseFloat(document.getElementById('ctc').value) || 0;
+            const bonus = parseFloat(document.getElementById('bonus').value) || 0;
+            const regime = document.getElementById('regime').value;
+
+            // Basic Assumptions:
+            // 1. Basic Salary = 50% of CTC
+            // 2. EPF = 12% of Basic (capped usually at 1800/mo, but many companies do actual 12%)
+            // Let's use 12% of Basic for this calculator.
+            const basicSalary = ctc * 0.5;
+            const pfDeduction = basicSalary * 0.12;
+            
+            let standardDeduction = 0;
+            let taxableIncome = 0;
+            let tax = 0;
+
+            if (regime === 'new') {
+                standardDeduction = 75000;
+                taxableIncome = Math.max(0, ctc - standardDeduction);
+                tax = calculateNewRegimeTax(taxableIncome);
+                document.getElementById('display-regime').innerText = "NEW REGIME";
+            } else {
+                standardDeduction = 50000;
+                // For old regime, we also subtract PF from taxable income (under 80C)
+                // Assuming no other deductions like HRA, 80D for simplicity
+                taxableIncome = Math.max(0, ctc - standardDeduction - Math.min(pfDeduction, 150000));
+                tax = calculateOldRegimeTax(taxableIncome);
+                document.getElementById('display-regime').innerText = "OLD REGIME";
+            }
+
+            const yearlyTakeHome = ctc - pfDeduction - tax;
+            const monthlyInHand = yearlyTakeHome / 12;
+
+            // Update UI
+            document.getElementById('res-gross').innerText = formatCurrency(ctc);
+            document.getElementById('res-pf').innerText = formatCurrency(pfDeduction);
+            document.getElementById('res-tax').innerText = formatCurrency(tax);
+            document.getElementById('res-sd').innerText = formatCurrency(standardDeduction);
+            document.getElementById('res-monthly').innerText = formatCurrency(monthlyInHand);
+        }
+
+        function calculateNewRegimeTax(income) {
+            // Updated Slabs FY 2024-25 (Budget July 2024)
+            // 0-3L: Nil
+            // 3-7L: 5%
+            // 7-10L: 10%
+            // 10-12L: 15%
+            // 12-15L: 20%
+            // Above 15L: 30%
+            
+            // Tax Rebate Section 87A: Taxable income up to 7L = 0 tax
+            if (income <= 700000) return 0;
+
+            let tax = 0;
+            if (income > 1500000) tax += (income - 1500000) * 0.30 + 150000;
+            else if (income > 1200000) tax += (income - 1200000) * 0.20 + 90000;
+            else if (income > 1000000) tax += (income - 1000000) * 0.15 + 60000;
+            else if (income > 700000) tax += (income - 700000) * 0.10 + 20000;
+            else if (income > 300000) tax += (income - 300000) * 0.05;
+
+            return tax + (tax * 0.04); // Including 4% Cess
+        }
+
+        function calculateOldRegimeTax(income) {
+            // Slabs: 0-2.5L Nil, 2.5-5L 5%, 5-10L 20%, 10L+ 30%
+            // Rebate up to 5L
+            if (income <= 500000) return 0;
+
+            let tax = 0;
+            if (income > 1000000) tax += (income - 1000000) * 0.30 + 112500;
+            else if (income > 500000) tax += (income - 500000) * 0.20 + 12500;
+            else if (income > 250000) tax += (income - 250000) * 0.05;
+
+            return tax + (tax * 0.04); // Including 4% Cess
+        }
+
+        function resetForm() {
+            document.getElementById('ctc').value = '';
+            document.getElementById('bonus').value = '';
+            document.getElementById('regime').value = 'new';
+            document.getElementById('res-gross').innerText = '₹ 0';
+            document.getElementById('res-pf').innerText = '₹ 0';
+            document.getElementById('res-tax').innerText = '₹ 0';
+            document.getElementById('res-sd').innerText = '₹ 0';
+            document.getElementById('res-monthly').innerText = '₹ 0';
+        }
+
+        // Listener to update note based on regime
+        document.getElementById('regime').addEventListener('change', function() {
+            const note = document.getElementById('regime-note');
+            if(this.value === 'new') {
+                note.innerText = "* New Regime includes ₹75k Standard Deduction.";
+            } else {
+                note.innerText = "* Old Regime includes ₹50k Standard Deduction and basic PF deduction (80C).";
+            }
+        });
+    </script>
+</body>
+</html>
