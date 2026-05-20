@@ -105,6 +105,7 @@
             color: white;
             font-weight: 800;
             font-size: 1rem;
+            flex-shrink: 0;
         }
 
         .theme-control, .back-btn {
@@ -121,6 +122,7 @@
             font-weight: 600;
             padding: 0 15px;
             font-size: 0.85rem;
+            white-space: nowrap;
         }
         .theme-control:hover, .back-btn:hover { border-color: var(--primary); background: var(--card-border); }
 
@@ -147,10 +149,6 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
-        }
-
-        @media (max-width: 900px) {
-            .portal-grid { grid-template-columns: 1fr; gap: 2rem; }
         }
 
         .category-title {
@@ -232,10 +230,6 @@
             display: grid;
             grid-template-columns: 380px 1fr;
             gap: 2.5rem;
-        }
-
-        @media (max-width: 1024px) {
-            .main-wrapper { grid-template-columns: 1fr; }
         }
 
         .glass-card {
@@ -364,6 +358,41 @@
         .faq-card { background: var(--card-bg); border: 1px solid var(--card-border); padding: 1.5rem; border-radius: 16px; margin-bottom: 1rem; }
         .faq-card strong { display: block; margin-bottom: 0.5rem; color: var(--text-main); font-size: 1.1rem; }
         .disclaimer-footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 3rem 0; border-top: 1px solid var(--card-border); font-style: italic; }
+
+        /* --- RESPONSIVENESS IMPROVEMENTS --- */
+        @media (max-width: 1024px) {
+            .main-wrapper { grid-template-columns: 1fr; }
+            .portal-grid { gap: 2.5rem; }
+        }
+
+        @media (max-width: 900px) {
+            .portal-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .portal-header h1 { font-size: 2.5rem; }
+        }
+
+        @media (max-width: 640px) {
+            html { font-size: 14px; }
+            .navbar { padding: 0.8rem 4%; }
+            .brand-section { font-size: 1.1rem; }
+            .portal-header h1 { font-size: 2rem; }
+            .tool-card { padding: 2rem; height: 150px; }
+            .tool-card h3 { font-size: 1.25rem; }
+            .kpi-row { grid-template-columns: 1fr; }
+            .glass-card { padding: 1.5rem; }
+            .hero-value { font-size: 1.75rem; }
+            .seo-content-section h2 { font-size: 1.75rem; }
+            .seo-content-section h3 { font-size: 1.4rem; }
+            .roadmap-item { padding-left: 1.8rem; }
+            .back-btn { padding: 0 10px; font-size: 0.75rem; }
+        }
+
+        @media (max-width: 480px) {
+            .brand-section { gap: 8px; }
+            .brand-logo { width: 28px; height: 28px; font-size: 0.9rem; }
+            .portal-header { margin-bottom: 2.5rem; }
+            .tool-card { border-radius: 18px; }
+            .hero-summary { padding: 1.25rem; }
+        }
     </style>
 </head>
 <body data-theme="dark">
@@ -373,8 +402,8 @@
         <div class="brand-logo">JG</div>
         JG Intelligence
     </div>
-    <div style="display: flex; align-items: center; gap: 15px;">
-        <button id="nav-back-btn" class="back-btn hidden" onclick="switchView('portal')">← Back to Portal</button>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <button id="nav-back-btn" class="back-btn hidden" onclick="switchView('portal')">← Back</button>
         <button class="theme-control" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
             <svg id="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -475,7 +504,7 @@
                             <button class="tab-btn active" id="mode-auto" onclick="setInHandMode('auto')">Auto Mode</button>
                             <button class="tab-btn" id="mode-manual" onclick="setInHandMode('manual')">Manual</button>
                         </div>
-                        <input type="number" id="manual-input" class="hidden" style="text-align: center; font-size: 1.5rem; font-weight: 800; background: rgba(0,0,0,0.2); border: none; color: white;">
+                        <input type="number" id="manual-input" class="hidden" style="text-align: center; font-size: 1.5rem; font-weight: 800; background: rgba(0,0,0,0.2); border: none; color: white; width: 100%; margin-bottom: 10px;">
                         <div class="hero-value" id="out-inhand">₹0</div>
                     </div>
 
