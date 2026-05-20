@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://salary-calculator.jg-intelligence.workers.dev/sitemap.xml
+Sitemap: https://finance.jg-intelligence.workers.dev/sitemap.xml
