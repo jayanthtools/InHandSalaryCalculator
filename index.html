@@ -13,10 +13,10 @@
     <meta charset="UTF-8">
     <meta name="google-site-verification" content="xRksfsoljKlEhOOVX1zY6s2N8-Dmvy8UYU81GhNWAB4"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SalaryPro Intelligence | India FY 2026-27 Take-Home Calculator</title>
+    <title>JG Intelligence | In-hand Salary Calculator & Wealth Roadmap</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Calculate your monthly take-home salary for FY 2026-27 in India. Accurate CTC to In-hand calculator with PF options, tax regime comparison, and a personalized money roadmap.">
+    <meta name="description" content="Calculate your monthly take-home salary for FY 2026-27 in India. Accurate CTC to In-hand calculator with PF options, tax regime comparison, and a personalized 6-month money roadmap.">
     <meta name="keywords" content="salary calculator india 2026, take home salary calculator, ctc to inhand calculator, provident fund calculator, new tax regime vs old regime, emergency fund india">
     <link rel="canonical" href="https://salary-calculator.jg-intelligence.workers.dev/" />
 
@@ -27,7 +27,6 @@
     
     <style>
         :root {
-            /* Fintech Dark Palette - Deep Blue & Slate */
             --bg-color: #020617;
             --nav-bg: rgba(2, 6, 23, 0.85);
             --card-bg: #0f172a;
@@ -51,6 +50,9 @@
             --primary: #4f46e5;
         }
 
+        /* FONT SIZE ADJUSTMENT FOR PROFESSIONAL LOOK */
+        html { font-size: 15px; }
+
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
 
         body {
@@ -58,11 +60,19 @@
             color: var(--text-main);
             transition: var(--transition);
             min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .wrapper-outer {
+            width: 94%;
+            max-width: 1250px;
+            margin: 0 auto;
         }
 
         /* --- Professional Minimalist Header --- */
         .navbar {
-            padding: 0.8rem 10%;
+            padding: 0.8rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -81,6 +91,7 @@
             font-weight: 800;
             font-size: 1.25rem;
             letter-spacing: -1px;
+            cursor: pointer;
         }
 
         .brand-logo {
@@ -96,28 +107,130 @@
             font-size: 1rem;
         }
 
-        .theme-control {
+        .theme-control, .back-btn {
             background: transparent;
             border: 1px solid var(--card-border);
             color: var(--text-main);
-            width: 40px;
-            height: 40px;
+            height: 38px;
             border-radius: 12px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: var(--transition);
+            font-weight: 600;
+            padding: 0 15px;
+            font-size: 0.85rem;
         }
-        .theme-control:hover { border-color: var(--primary); background: var(--card-border); }
+        .theme-control:hover, .back-btn:hover { border-color: var(--primary); background: var(--card-border); }
 
-        /* --- Page Layout --- */
-        .main-wrapper {
-            max-width: 1200px;
-            margin: 2.5rem auto;
-            padding: 0 1.5rem;
+        /* --- Portal Layout --- */
+        #portal-view {
+            padding: 4rem 0;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .portal-header { text-align: center; margin-bottom: 4rem; }
+        .portal-header h1 {
+            font-size: 3rem; font-weight: 800; letter-spacing: -2px;
+            background: linear-gradient(to right, var(--primary), #a855f7);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .portal-grid {
             display: grid;
-            grid-template-columns: 400px 1fr;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        @media (max-width: 900px) {
+            .portal-grid { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
+        .category-title {
+            font-size: 0.8rem; font-weight: 800; letter-spacing: 3px;
+            color: var(--primary); text-transform: uppercase; margin-bottom: 2rem;
+            display: flex; align-items: center; gap: 15px;
+        }
+        .category-title::after { content: ''; flex: 1; height: 1px; background: var(--card-border); }
+
+        .tool-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 3rem;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .tool-card h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            transition: var(--transition);
+        }
+
+        .hover-popup {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            color: white;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition);
+            opacity: 0;
+        }
+
+        .tool-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .tool-card:hover h3 { opacity: 0; transform: scale(0.9); }
+        .tool-card:hover .hover-popup { top: 0; opacity: 1; }
+
+        .hover-popup p { font-size: 0.9rem; font-weight: 700; margin-bottom: 5px; }
+
+        .soon-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 1.4rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-weight: 700;
+            cursor: default;
+        }
+        .badge-soon {
+            font-size: 0.65rem;
+            padding: 4px 10px;
+            border-radius: 8px;
+            background: var(--card-border);
+            color: var(--text-muted);
+        }
+
+        /* --- Calculator View Layout --- */
+        .main-wrapper {
+            margin: 2.5rem 0;
+            display: grid;
+            grid-template-columns: 380px 1fr;
             gap: 2.5rem;
         }
 
@@ -125,7 +238,6 @@
             .main-wrapper { grid-template-columns: 1fr; }
         }
 
-        /* --- Dashboard Cards --- */
         .glass-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -145,7 +257,6 @@
             display: block;
         }
 
-        /* --- Inputs --- */
         .field-group { margin-bottom: 1.5rem; }
         label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.7rem; color: var(--text-main); }
         input, select {
@@ -161,7 +272,6 @@
         }
         input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); }
 
-        /* --- KPI Highlights --- */
         .kpi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
         .hero-summary {
             background: linear-gradient(145deg, var(--primary), #3730a3);
@@ -176,7 +286,6 @@
         .hero-value { font-size: 2rem; font-weight: 800; margin: 10px 0; }
         .hero-label { font-size: 0.8rem; opacity: 0.85; font-weight: 600; text-transform: uppercase; }
 
-        /* --- Roadmap Progress --- */
         .roadmap-item {
             position: relative;
             padding-left: 2.5rem;
@@ -207,8 +316,6 @@
         }
 
         .chart-wrap { position: relative; height: 250px; margin-top: 1.5rem; }
-
-        /* --- Responsive Utilities --- */
         .hidden { display: none !important; }
         .text-error { color: var(--error); font-weight: 700; font-size: 0.8rem; margin-top: 8px; }
 
@@ -233,11 +340,18 @@
         }
         .tab-btn.active { background: var(--primary); color: white; }
 
+        #savings-alert-box {
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 700;
+            line-height: 1.4;
+            padding: 10px;
+        }
+
         /* --- SEO SECTION STYLING --- */
         .seo-content-section {
             max-width: 1100px;
             margin: 4rem auto;
-            padding: 0 1.5rem;
             line-height: 1.8;
             color: var(--text-main);
         }
@@ -255,12 +369,12 @@
 <body data-theme="dark">
 
 <nav class="navbar">
-    <div class="brand-section">
-        <div class="brand-logo">S</div>
-        SalaryPro Intelligence
+    <div class="brand-section" onclick="switchView('portal')">
+        <div class="brand-logo">JG</div>
+        JG Intelligence
     </div>
     <div style="display: flex; align-items: center; gap: 15px;">
-        <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">INDIA FY 2026-27</span>
+        <button id="nav-back-btn" class="back-btn hidden" onclick="switchView('portal')">← Back to Portal</button>
         <button class="theme-control" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
             <svg id="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -269,233 +383,251 @@
     </div>
 </nav>
 
-<div class="main-wrapper">
-    <!-- Left Sidebar: Settings -->
-    <aside>
-        <div class="glass-card">
-            <span class="meta-tag">Identity & Pay</span>
-            <div class="field-group">
-                <label>Annual Cost to Company (CTC) (₹)</label>
-                <input type="number" id="in-ctc" value="1500000">
-            </div>
-            <div class="field-group">
-                <label>Your Age</label>
-                <input type="number" id="in-age" value="28">
-            </div>
-            <div class="field-group">
-                <label>Provident Fund Option</label>
-                <select id="in-pf-mode">
-                    <option value="capped">Standard Capped (₹1,800/mo)</option>
-                    <option value="actual">Actual (12% of Basic Salary)</option>
-                    <option value="none">Opt-out (No Provident Fund)</option>
-                </select>
-                <p style="font-size: 0.7rem; color: var(--text-muted); margin-top: 8px;">Note: Opting out increases in-hand but removes retirement benefits.</p>
-            </div>
-        </div>
+<div class="wrapper-outer">
+    
+    <!-- PORTAL HOMEPAGE -->
+    <div id="portal-view">
+        <header class="portal-header">
+            <h1>JG Intelligence</h1>
+            <p style="color: var(--text-muted);">Standardized documentation and advanced financial intelligence.</p>
+        </header>
 
-        <div class="glass-card">
-            <span class="meta-tag">Financial Base</span>
-            <div class="field-group">
-                <label>Total Monthly Expenses (₹)</label>
-                <input type="number" id="in-expenses" value="50000">
-            </div>
-            <div class="field-group">
-                <label>Risk Profile</label>
-                <select id="in-risk">
-                    <option value="Conservative">Conservative (9 Months)</option>
-                    <option value="Balanced" selected>Balanced (6 Months)</option>
-                    <option value="Aggressive">Aggressive (4 Months)</option>
-                </select>
-            </div>
-            <div class="field-group">
-                <label>Existing Emergency Fund (₹)</label>
-                <input type="number" id="in-existing-ef" value="0">
-            </div>
-        </div>
-    </aside>
-
-    <!-- Main Content: Dashboard -->
-    <main>
-        <div class="kpi-row">
-            <div class="hero-summary">
-                <span class="hero-label">Monthly Take-Home</span>
-                <div class="toggle-tab">
-                    <button class="tab-btn active" id="mode-auto" onclick="setInHandMode('auto')">Auto Estimate</button>
-                    <button class="tab-btn" id="mode-manual" onclick="setInHandMode('manual')">Manual</button>
+        <div class="portal-grid">
+            <!-- LEFT: FINANCIALS -->
+            <div>
+                <h2 class="category-title">Financials</h2>
+                <div class="tool-card" onclick="switchView('calc')">
+                    <h3>In-hand Salary Calculator</h3>
+                    <div class="hover-popup">
+                        <p>Advanced CTC In-hand Calculator</p>
+                        <p>Financial Wealth Builder</p>
+                    </div>
                 </div>
-                <input type="number" id="manual-input" class="hidden" style="text-align: center; font-size: 1.5rem; font-weight: 800; background: rgba(0,0,0,0.2); border: none; color: white;">
-                <div class="hero-value" id="out-inhand">₹0</div>
             </div>
 
-            <div class="glass-card" style="text-align: center; margin-bottom: 0;">
-                <span class="hero-label" style="color: var(--text-muted)">Monthly Savings Capacity</span>
-                <div class="hero-value" id="out-surplus" style="color: var(--secondary)">₹0</div>
-                <div id="surplus-error" class="text-error hidden">Warning: Expenses exceed in-hand salary!</div>
+            <!-- RIGHT: DOCUMENTS -->
+            <div>
+                <h2 class="category-title">Documents - Templates</h2>
+                <div class="soon-item">
+                    Road Damage Issue Template
+                    <span class="badge-soon">SOON</span>
+                </div>
+                <div class="soon-item">
+                    Police Complaint Template
+                    <span class="badge-soon">SOON</span>
+                </div>
             </div>
         </div>
+    </div>
 
-        <!-- The Roadmap -->
-        <div class="glass-card" style="margin-top: 1.5rem;">
-            <span class="meta-tag">Money Roadmap</span>
-            
-            <div class="roadmap-item" id="phase-1">
-                <div class="roadmap-indicator"></div>
-                <span class="status-chip" id="status-1">ACTIVE</span>
-                <h3>1. Build Emergency Fund</h3>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin: 8px 0 15px;">Secure your lifestyle against job loss or medical shocks.</p>
-                
+    <!-- CALCULATOR VIEW -->
+    <div id="calc-view" class="hidden">
+        <div class="main-wrapper">
+            <!-- Left Sidebar -->
+            <aside>
+                <div class="glass-card">
+                    <span class="meta-tag">Identity & Pay</span>
+                    <div class="field-group">
+                        <label>Annual Cost to Company (CTC) (₹)</label>
+                        <input type="number" id="in-ctc" value="1100000">
+                    </div>
+                    <div class="field-group">
+                        <label>Your Age</label>
+                        <input type="number" id="in-age" value="28">
+                    </div>
+                    <div class="field-group">
+                        <label>Provident Fund Option</label>
+                        <select id="in-pf-mode">
+                            <option value="capped">Standard Capped (₹1,800/mo)</option>
+                            <option value="actual" selected>Actual (12% of Basic Salary)</option>
+                            <option value="none">Opt-out (No Provident Fund)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <span class="meta-tag">Financial Base</span>
+                    <div class="field-group">
+                        <label>Total Monthly Expenses (₹)</label>
+                        <input type="number" id="in-expenses" value="0">
+                    </div>
+                    <div class="field-group">
+                        <label>Risk Profile</label>
+                        <select id="in-risk">
+                            <option value="Conservative">Conservative (9 Months)</option>
+                            <option value="Balanced" selected>Balanced (6 Months)</option>
+                            <option value="Aggressive">Aggressive (4 Months)</option>
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label>Existing Emergency Fund (₹)</label>
+                        <input type="number" id="in-existing-ef" value="0">
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content: Dashboard -->
+            <main>
                 <div class="kpi-row">
-                    <div>
-                        <p class="hero-label" style="color: var(--text-muted)">Target Goal</p>
-                        <p id="out-ef-target" style="font-weight: 700; font-size: 1.1rem;">₹0</p>
+                    <div class="hero-summary">
+                        <span class="hero-label">Monthly Take-Home</span>
+                        <div class="toggle-tab">
+                            <button class="tab-btn active" id="mode-auto" onclick="setInHandMode('auto')">Auto Mode</button>
+                            <button class="tab-btn" id="mode-manual" onclick="setInHandMode('manual')">Manual</button>
+                        </div>
+                        <input type="number" id="manual-input" class="hidden" style="text-align: center; font-size: 1.5rem; font-weight: 800; background: rgba(0,0,0,0.2); border: none; color: white;">
+                        <div class="hero-value" id="out-inhand">₹0</div>
                     </div>
-                    <div>
-                        <p class="hero-label" style="color: var(--text-muted)">Time to Complete</p>
-                        <p id="out-ef-time" style="font-weight: 700; font-size: 1.1rem; color: var(--accent);">0 Months</p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="roadmap-item" id="phase-2">
-                <div class="roadmap-indicator"></div>
-                <span class="status-chip" id="status-2">LOCKED</span>
-                <h3>2. Insurance & Protection</h3>
-                <div id="content-2" class="hidden" style="background: var(--bg-color); padding: 1.25rem; border-radius: 16px; margin-top: 1rem;">
-                    <p style="font-size: 0.9rem; margin-bottom: 0.6rem;"><strong>Term Life:</strong> <span id="out-term">₹0</span> Coverage</p>
-                    <p style="font-size: 0.9rem;"><strong>Health Policy:</strong> <span id="out-health">₹0</span> Coverage</p>
+                    <div class="glass-card" style="text-align: center; margin-bottom: 0; min-height: 160px; display: flex; flex-direction: column; justify-content: center;">
+                        <span class="hero-label" style="color: var(--text-muted)">Monthly Savings Capacity</span>
+                        
+                        <!-- IN-BOX PROMPT -->
+                        <div id="savings-alert-box" class="hidden">
+                            Update 'Total Monthly Expenses' in the left panel to accurately calculate your saving capacity.
+                        </div>
+                        
+                        <div class="hero-value" id="out-surplus" style="color: var(--secondary)">₹0</div>
+                        <div id="surplus-error" class="text-error hidden">Warning: Expenses exceed in-hand salary!</div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="roadmap-item" id="phase-3">
-                <div class="roadmap-indicator"></div>
-                <span class="status-chip" id="status-3">LOCKED</span>
-                <h3>3. Wealth Building</h3>
-                <div id="content-3" class="hidden">
-                    <div class="chart-wrap">
-                        <canvas id="investChart"></canvas>
+                <!-- The Roadmap -->
+                <div class="glass-card" style="margin-top: 1.5rem;">
+                    <span class="meta-tag">Money Roadmap</span>
+                    
+                    <div class="roadmap-item" id="phase-1">
+                        <div class="roadmap-indicator"></div>
+                        <span class="status-chip" id="status-1">ACTIVE</span>
+                        <h3>1. Build Emergency Fund (6 Months Coverage)</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 8px 0 15px;">Goal fixed at 6 months of your monthly take-home salary.</p>
+                        
+                        <div class="kpi-row">
+                            <div>
+                                <p class="hero-label">Target Goal</p>
+                                <p id="out-ef-target" style="font-weight: 700; font-size: 1.1rem;">₹0</p>
+                            </div>
+                            <div>
+                                <p class="hero-label">Monthly Invest</p>
+                                <p id="out-ef-invest" style="font-weight: 700; font-size: 1.1rem; color: var(--secondary);">₹0</p>
+                            </div>
+                            <div>
+                                <p class="hero-label">Duration</p>
+                                <p id="out-ef-time" style="font-weight: 700; font-size: 1.1rem; color: var(--accent);">0 Months</p>
+                            </div>
+                        </div>
                     </div>
-                    <div style="text-align: center; margin-top: 1rem;">
-                        <p class="hero-label">Recommended Monthly SIP</p>
-                        <p id="out-sip" style="font-size: 1.6rem; font-weight: 800; color: var(--secondary);">₹0</p>
+
+                    <div class="roadmap-item" id="phase-2">
+                        <div class="roadmap-indicator"></div>
+                        <span class="status-chip" id="status-2">LOCKED</span>
+                        <h3>2. Insurance & Protection</h3>
+                        <div id="content-2" class="hidden" style="background: var(--bg-color); padding: 1.25rem; border-radius: 16px; margin-top: 1rem;">
+                            <p style="font-size: 0.9rem; margin-bottom: 0.6rem;"><strong>Term Life:</strong> <span id="out-term">₹0</span> Coverage</p>
+                            <p style="font-size: 0.9rem;"><strong>Health Policy:</strong> <span id="out-health">₹0</span> Coverage</p>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-item" id="phase-3">
+                        <div class="roadmap-indicator"></div>
+                        <span class="status-chip" id="status-3">LOCKED</span>
+                        <h3>3. Wealth Building</h3>
+                        <div id="content-3" class="hidden">
+                            <div class="chart-wrap">
+                                <canvas id="investChart"></canvas>
+                            </div>
+                            <div style="text-align: center; margin-top: 1rem;">
+                                <p class="hero-label">Recommended Monthly SIP</p>
+                                <p id="out-sip" style="font-size: 1.6rem; font-weight: 800; color: var(--secondary);">₹0</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <!-- Analytical Charts -->
+                <div class="kpi-row">
+                    <div class="glass-card">
+                        <span class="meta-tag">Tax Comparison</span>
+                        <div class="chart-wrap" style="height: 200px;">
+                            <canvas id="taxChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="glass-card">
+                        <span class="meta-tag">Salary Allocation</span>
+                        <div class="chart-wrap" style="height: 200px;">
+                            <canvas id="distChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
 
-        <!-- Analytical Charts -->
-        <div class="kpi-row">
-            <div class="glass-card">
-                <span class="meta-tag">Tax Comparison</span>
-                <div class="chart-wrap" style="height: 200px;">
-                    <canvas id="taxChart"></canvas>
-                </div>
+        <!-- SEO GUIDE -->
+        <section class="seo-content-section">
+            <h2>Navigating the Indian Salary Landscape: A Guide for FY 2026-27</h2>
+            <p>Understanding your salary structure in India has never been more vital. With the financial landscape evolving and the 2026-27 budget updates in place, many Indian professionals find themselves staring at a significant gap between their Annual CTC (Cost to Company) and the actual "Take-home" salary that hits their bank account. This guide decodes the intelligence behind your paycheck and provides a roadmap for wealth building.</p>
+
+            <h3>What is CTC vs Take-Home Salary?</h3>
+            <p>The term <strong>CTC (Cost to Company)</strong> represents the total annual expenditure an employer incurs on an employee. It includes your basic salary, allowances, and various non-cash benefits like Employer Provident Fund (PF) contributions, Gratuity, and insurance premiums. <strong>Take-home salary</strong> (or in-hand salary) is what remains after mandatory deductions such as Income Tax (TDS), Employee PF, and Professional Tax are subtracted from your gross earnings.</p>
+
+            <h3>Common Salary Deductions in India</h3>
+            <p>Every Indian payslip typically contains three primary deductions:</p>
+            <ul>
+                <li><strong>Provident Fund (PF):</strong> A government-backed retirement scheme where usually 12% of your basic salary is contributed.</li>
+                <li><strong>Professional Tax (PT):</strong> A minor state-level tax, typically capped at ₹200–₹300 per month depending on your state.</li>
+                <li><strong>Income Tax (TDS):</strong> Tax Deducted at Source based on the slab rates of your chosen tax regime.</li>
+            </ul>
+
+            <div class="faq-container">
+                <h2>Frequently Asked Questions (FAQs)</h2>
+                <div class="faq-card"><strong>1. Is the New Tax Regime better for 2026-27?</strong> Generally, for salaried individuals with few deductions, the New Regime is more beneficial due to lower tax rates and higher rebate limits.</div>
+                <div class="faq-card"><strong>2. Can I change my PF option mid-year?</strong> Usually, PF options are fixed at the start of the financial year or upon joining a new company. Consult your HR for specific company policies.</div>
+                <div class="faq-card"><strong>3. Why is my in-hand salary much lower than my CTC?</strong> This is due to "Employer PF" and "Gratuity" which are part of CTC but are non-cash components, alongside TDS and your own PF contribution.</div>
+                <div class="faq-card"><strong>4. What is the Standard Deduction for FY 2026-27?</strong> It is a flat deduction (currently ₹75,000 for New Regime) available to reduce your taxable income.</div>
+                <div class="faq-card"><strong>5. Where should I keep my Emergency Fund?</strong> Keep it in a high-interest savings account or a Liquid Mutual Fund where you can access it within 24 hours.</div>
+                <div class="faq-card"><strong>6. How is "Basic Salary" calculated?</strong> Most Indian companies set the basic salary at 40% to 50% of the total Annual CTC.</div>
+                <div class="faq-card"><strong>7. Should I choose the "Actual" PF mode?</strong> Yes, if you want a large, tax-efficient retirement corpus. Compounding interest on PF is historically higher than many savings accounts.</div>
+                <div class="faq-card"><strong>8. Is ₹200 Professional Tax mandatory?</strong> Yes, in states where it applies, it is a mandatory monthly deduction for salaried employees.</div>
+                <div class="faq-card"><strong>9. How much health insurance coverage do I need?</strong> For a young family, a base plan of ₹10 Lakhs with a "Super Top-up" of ₹20-50 Lakhs is the current recommended gold standard in India.</div>
+                <div class="faq-card"><strong>10. Can I trust this calculator for official tax filing?</strong> This tool provides high-accuracy estimates based on current laws, but you should always consult a Chartered Accountant for final filings.</div>
             </div>
-            <div class="glass-card">
-                <span class="meta-tag">Salary Allocation</span>
-                <div class="chart-wrap" style="height: 200px;">
-                    <canvas id="distChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </main>
+            <div class="disclaimer-footer">Educational estimates only; actual salary varies by employer policies and specific tax laws.</div>
+        </section>
+    </div>
 </div>
 
-<!-- BEGIN SEO SECTION -->
-<section class="seo-content-section">
-    <h2>Navigating the Indian Salary Landscape: A Guide for FY 2026-27</h2>
-    <p>Understanding your salary structure in India has never been more vital. With the financial landscape evolving and the 2026-27 budget updates in place, many Indian professionals find themselves staring at a significant gap between their Annual CTC (Cost to Company) and the actual "Take-home" salary that hits their bank account. This guide decodes the intelligence behind your paycheck and provides a roadmap for wealth building.</p>
-
-    <h3>What is CTC vs Take-Home Salary?</h3>
-    <p>The term <strong>CTC (Cost to Company)</strong> represents the total annual expenditure an employer incurs on an employee. It includes your basic salary, allowances, and various non-cash benefits like Employer Provident Fund (PF) contributions, Gratuity, and insurance premiums. <strong>Take-home salary</strong> (or in-hand salary) is what remains after mandatory deductions such as Income Tax (TDS), Employee PF, and Professional Tax are subtracted from your gross earnings. Our SalaryPro Intelligence tool helps you bridge this gap by calculating these components in real-time.</p>
-
-    <h3>Common Salary Deductions in India</h3>
-    <p>Every Indian payslip typically contains three primary deductions:</p>
-    <ul>
-        <li><strong>Provident Fund (PF):</strong> A government-backed retirement scheme where usually 12% of your basic salary is contributed.</li>
-        <li><strong>Professional Tax (PT):</strong> A minor state-level tax, typically capped at ₹200–₹300 per month depending on your state.</li>
-        <li><strong>Income Tax (TDS):</strong> Tax Deducted at Source based on the slab rates of your chosen tax regime.</li>
-    </ul>
-
-    <h3>How to Choose Your PF Option: Capped vs Actual vs Opt-out</h3>
-    <p>One of the unique features of our intelligence platform is the ability to choose your PF mode. This decision significantly impacts your monthly liquidity:</p>
-    <ul>
-        <li><strong>Standard Capped (₹1,800/mo):</strong> This limits your contribution to the statutory minimum based on a ₹15,000 wage ceiling. This is the best option for those who need higher monthly cash flow for EMIs or immediate expenses.</li>
-        <li><strong>Actual (12% of Basic):</strong> This maximizes your retirement savings. While it reduces your current take-home pay, the long-term compounding of a larger PF corpus (with tax-free interest) is a powerful wealth-builder.</li>
-        <li><strong>Opt-out (No PF):</strong> Available to some employees at the start of their career if they earn above a certain basic pay threshold. It offers maximum monthly cash but requires high self-discipline to invest for retirement elsewhere.</li>
-    </ul>
-
-    <h3>Why Expense Tracking and Savings Capacity Matter</h3>
-    <p>Financial freedom isn't about how much you earn; it's about your <strong>Savings Capacity</strong>. Our platform requires you to enter your monthly expenses because wealth building only starts with the "surplus" (Monthly In-hand minus Monthly Expenses). By tracking your rent, groceries, and lifestyle costs, you can objectively see if you are living within your means or if you need to optimize your spending to reach your goals faster.</p>
-
-    <h3>The 4/6/9 Emergency Fund Rule</h3>
-    <p>An Emergency Fund is the bedrock of financial security. It protects you from job loss, medical emergencies, or unplanned house repairs. Based on your risk profile, we recommend the following liquid reserves:</p>
-    <ul>
-        <li><strong>Aggressive (4 Months):</strong> Suited for young professionals in stable tech jobs with no dependents.</li>
-        <li><strong>Balanced (6 Months):</strong> The standard recommendation for most Indian households.</li>
-        <li><strong>Conservative (9 Months):</strong> Necessary if you have high debt (like a home loan), multiple dependents, or work in a volatile industry.</li>
-    </ul>
-
-    <h3>Insurance Basics for Beginners</h3>
-    <p>Phase 2 of the SalaryPro roadmap focuses on Protection. Before investing in the stock market, ensure you have:</p>
-    <ul>
-        <li><strong>Term Life Insurance:</strong> A pure protection cover that provides 10-15x your annual income to your family in your absence.</li>
-        <li><strong>Health Insurance:</strong> While most employers provide health cover, having a personal policy is essential to stay protected during job switches or if your employer reduces benefits.</li>
-    </ul>
-
-    <h3>Wealth Building: Asset Allocation by Age</h3>
-    <p>Once your safety net is ready, you enter Phase 3: Wealth Building. The "SIP" (Systematic Investment Plan) is the most effective tool for Indian investors. We recommend a split between Equity (Nifty 50 Index funds, Flexicap funds) and Debt (PPF, Liquid funds) based on your age and risk preference. A common rule is "100 minus your age" in equity, but our tool adjusts this based on your specific risk profile to maximize returns while maintaining peace of mind.</p>
-
-    <div class="faq-container">
-        <h2>Frequently Asked Questions (FAQs)</h2>
-        <div class="faq-card">
-            <strong>1. Is the New Tax Regime better for 2026-27?</strong>
-            Generally, for salaried individuals with few deductions, the New Regime is more beneficial due to lower tax rates and higher rebate limits.
-        </div>
-        <div class="faq-card">
-            <strong>2. Can I change my PF option mid-year?</strong>
-            Usually, PF options are fixed at the start of the financial year or upon joining a new company. Consult your HR for specific company policies.
-        </div>
-        <div class="faq-card">
-            <strong>3. Why is my in-hand salary much lower than my CTC?</strong>
-            This is due to "Employer PF" and "Gratuity" which are part of CTC but are non-cash components, alongside TDS and your own PF contribution.
-        </div>
-        <div class="faq-card">
-            <strong>4. What is the Standard Deduction for FY 2026-27?</strong>
-            It is a flat deduction (currently ₹75,000 for New Regime) available to reduce your taxable income.
-        </div>
-        <div class="faq-card">
-            <strong>5. Where should I keep my Emergency Fund?</strong>
-            Keep it in a high-interest savings account or a Liquid Mutual Fund where you can access it within 24 hours.
-        </div>
-        <div class="faq-card">
-            <strong>6. How is "Basic Salary" calculated?</strong>
-            Most Indian companies set the basic salary at 40% to 50% of the total Annual CTC.
-        </div>
-        <div class="faq-card">
-            <strong>7. Should I choose the "Actual" PF mode?</strong>
-            Yes, if you want a large, tax-efficient retirement corpus. Compounding interest on PF is historically higher than many savings accounts.
-        </div>
-        <div class="faq-card">
-            <strong>8. Is ₹200 Professional Tax mandatory?</strong>
-            Yes, in states where it applies, it is a mandatory monthly deduction for salaried employees.
-        </div>
-        <div class="faq-card">
-            <strong>9. How much health insurance coverage do I need?</strong>
-            For a young family, a base plan of ₹10 Lakhs with a "Super Top-up" of ₹20-50 Lakhs is the current recommended gold standard in India.
-        </div>
-        <div class="faq-card">
-            <strong>10. Can I trust this calculator for official tax filing?</strong>
-            This tool provides high-accuracy estimates based on current laws, but you should always consult a Chartered Accountant for final filings.
-        </div>
-    </div>
-
-    <div class="disclaimer-footer">
-        Educational estimates only; actual salary varies by employer policies and specific tax laws.
-    </div>
-</section>
-<!-- END SEO SECTION -->
-
 <script>
+    /* --- VIEW & THEME LOGIC --- */
+    let state = { view: 'portal', theme: 'dark', inHandMode: 'auto', charts: {} };
+
+    function switchView(v) {
+        state.view = v;
+        const portal = document.getElementById('portal-view');
+        const calc = document.getElementById('calc-view');
+        const backBtn = document.getElementById('nav-back-btn');
+        if(v === 'calc') {
+            portal.classList.add('hidden');
+            calc.classList.remove('hidden');
+            backBtn.classList.remove('hidden');
+            runIntelligence();
+        } else {
+            portal.classList.remove('hidden');
+            calc.classList.add('hidden');
+            backBtn.classList.add('hidden');
+        }
+        window.scrollTo(0,0);
+    }
+
+    function toggleTheme() {
+        state.theme = state.theme === 'dark' ? 'light' : 'dark';
+        document.body.setAttribute('data-theme', state.theme);
+        const icon = document.getElementById('theme-icon');
+        if(state.theme === 'light') icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+        else icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+        if(state.view === 'calc') runIntelligence();
+    }
+
+    /* --- CALCULATION ENGINE --- */
     const CONFIG = {
         SD_NEW: 75000,
         SD_OLD: 50000,
@@ -503,24 +635,6 @@
         PTAX: 200,
         CESS: 0.04
     };
-
-    let state = {
-        inHandMode: 'auto',
-        theme: 'dark',
-        charts: {}
-    };
-
-    function toggleTheme() {
-        state.theme = state.theme === 'dark' ? 'light' : 'dark';
-        document.body.setAttribute('data-theme', state.theme);
-        const icon = document.getElementById('theme-icon');
-        if(state.theme === 'light') {
-            icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
-        } else {
-            icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-        }
-        runIntelligence();
-    }
 
     function setInHandMode(mode) {
         state.inHandMode = mode;
@@ -536,55 +650,117 @@
     }
 
     /**
-     * CORE CALCULATION ENGINE
+     * REVERSE SOLVER: Finds the Gross Annual Income required to reach a Target Net Income
+     * It uses a binary search algorithm to narrow down the Gross Salary.
      */
+    function solveForGross(targetNetAnnual, pfMode) {
+        let low = targetNetAnnual;
+        let high = targetNetAnnual * 2.5; // High enough to cover extreme taxes
+        let result = low;
+        
+        for(let i = 0; i < 25; i++) { // 25 iterations for high precision
+            let mid = (low + high) / 2;
+            let monthlyBasic = mid / 12 * 0.40;
+            let empPF = 0;
+            if (pfMode !== 'none') {
+                let base = pfMode === 'capped' ? Math.min(monthlyBasic, CONFIG.PF_CEILING) : monthlyBasic;
+                empPF = base * 0.12;
+            }
+            
+            let tN = calcTax(mid, 'new');
+            let tO = calcTax(mid, 'old');
+            let chosenT = Math.min(tN, tO);
+            
+            let netTest = mid - (empPF * 12) - chosenT - (CONFIG.PTAX * 12);
+            
+            if (netTest < targetNetAnnual) low = mid;
+            else high = mid;
+            result = mid;
+        }
+        return result;
+    }
+
     function runIntelligence() {
         const ctc = parseFloat(document.getElementById('in-ctc').value) || 0;
-        const age = parseInt(document.getElementById('in-age').value) || 25;
+        const age = parseInt(document.getElementById('in-age').value) || 28;
         const pfMode = document.getElementById('in-pf-mode').value;
         const expenses = parseFloat(document.getElementById('in-expenses').value) || 0;
         const risk = document.getElementById('in-risk').value;
         const existEF = parseFloat(document.getElementById('in-existing-ef').value) || 0;
 
-        // --- 1. Provident Fund Logic ---
-        const monthlyBasic = (ctc / 12) * 0.40;
-        let empPF = 0;
-        let employerPF = 0;
+        let workingGrossAnnual, currentTakeHome, empPF, taxN, taxO, chosenTax;
 
-        if (pfMode !== 'none') {
-            const base = pfMode === 'capped' ? Math.min(monthlyBasic, CONFIG.PF_CEILING) : monthlyBasic;
-            empPF = base * 0.12;
-            employerPF = base * 0.12;
-        }
-
-        const grossAnnual = (ctc - (employerPF * 12));
-        const taxN = calcTax(grossAnnual, 'new');
-        const taxO = calcTax(grossAnnual, 'old');
-        const chosenTax = Math.min(taxN, taxO);
-        const estInHand = (grossAnnual / 12) - empPF - (chosenTax / 12) - CONFIG.PTAX;
-        
-        let inhandVal = estInHand;
-        if(state.inHandMode === 'manual') {
-            inhandVal = parseFloat(document.getElementById('manual-input').value) || 0;
+        if (state.inHandMode === 'auto') {
+            // Logic based on CTC
+            const monthlyBasic = (ctc / 12) * 0.40;
+            let employerPF = 0;
+            if (pfMode !== 'none') {
+                let base = pfMode === 'capped' ? Math.min(monthlyBasic, CONFIG.PF_CEILING) : monthlyBasic;
+                employerPF = base * 0.12;
+            }
+            workingGrossAnnual = ctc - (employerPF * 12);
         } else {
-            document.getElementById('out-inhand').innerText = format(estInHand);
-            document.getElementById('manual-input').value = Math.round(estInHand);
+            // Logic based on Manual Input
+            const manualNetMonthly = parseFloat(document.getElementById('manual-input').value) || 0;
+            workingGrossAnnual = solveForGross(manualNetMonthly * 12, pfMode);
         }
 
-        const surplus = inhandVal - expenses;
-        document.getElementById('out-surplus').innerText = format(surplus);
-        document.getElementById('surplus-error').classList.toggle('hidden', surplus >= 0);
+        // Calculate standard deductions and taxes based on workingGrossAnnual
+        const monthlyBasic = (workingGrossAnnual / 12) * 0.40;
+        empPF = 0;
+        if (pfMode !== 'none') {
+            let base = pfMode === 'capped' ? Math.min(monthlyBasic, CONFIG.PF_CEILING) : monthlyBasic;
+            empPF = base * 0.12;
+        }
 
-        const roadmap = computeRoadmap(surplus, expenses, risk, existEF, age, ctc);
-        renderRoadmap(roadmap);
-        renderCharts(inhandVal, empPF, chosenTax, taxN, taxO, roadmap);
+        taxN = calcTax(workingGrossAnnual, 'new');
+        taxO = calcTax(workingGrossAnnual, 'old');
+        chosenTax = Math.min(taxN, taxO);
+        
+        currentTakeHome = (workingGrossAnnual / 12) - empPF - (chosenTax / 12) - CONFIG.PTAX;
+
+        // UI Updates for Take-Home
+        if(state.inHandMode === 'auto') {
+            document.getElementById('out-inhand').innerText = format(currentTakeHome);
+            document.getElementById('manual-input').value = Math.round(currentTakeHome);
+        }
+
+        const surplus = currentTakeHome - expenses;
+
+        // Savings Capacity Prompt Logic
+        const alertEl = document.getElementById('savings-alert-box');
+        const surplusValueEl = document.getElementById('out-surplus');
+        if (expenses === 0) {
+            alertEl.classList.remove('hidden');
+            surplusValueEl.classList.add('hidden');
+        } else {
+            alertEl.classList.add('hidden');
+            surplusValueEl.classList.remove('hidden');
+            surplusValueEl.innerText = format(surplus);
+        }
+
+        document.getElementById('surplus-error').classList.toggle('hidden', surplus >= 0 || expenses === 0);
+
+        // ROADMAP: Pull from Unified currentTakeHome
+        const targetEF = currentTakeHome * 6;
+        const remainingEF = Math.max(0, targetEF - existEF);
+        const monthlyEFInvest = (remainingEF > 0 && surplus > 0) ? surplus : 0;
+        const monthsToEF = monthlyEFInvest > 0 ? Math.ceil(remainingEF / monthlyEFInvest) : 0;
+
+        const term = Math.max(workingGrossAnnual * 10, 50000 * 12 * 15);
+        let health = age > 30 ? (age > 45 ? 2500000 : 1500000) : 1000000;
+        const investAmt = remainingEF === 0 ? Math.max(0, surplus * 0.9) : 0;
+        let eq = 100 - age; if(risk === 'Aggressive') eq += 10; if(risk === 'Conservative') eq -= 10;
+        const rData = { targetEF, monthlyEFInvest, monthsToEF, remainingEF, term, health, investAmt, eq: Math.min(Math.max(eq, 20), 90) };
+
+        renderRoadmap(rData);
+        renderCharts(currentTakeHome, empPF, chosenTax, taxN, taxO, rData);
     }
 
     function calcTax(income, regime) {
         let sd = regime === 'new' ? CONFIG.SD_NEW : CONFIG.SD_OLD;
         let taxable = Math.max(0, income - sd);
         let tax = 0;
-
         if (regime === 'new') {
             if (taxable <= 1200000) return 0; 
             if (taxable > 1500000) tax = (taxable - 1500000) * 0.3 + 150000;
@@ -602,113 +778,52 @@
         return tax * (1 + CONFIG.CESS);
     }
 
-    function computeRoadmap(surplus, exp, risk, existEF, age, ctc) {
-        const mult = { 'Conservative': 9, 'Balanced': 6, 'Aggressive': 4 };
-        const target = exp * mult[risk];
-        const remaining = Math.max(0, target - existEF);
-        const monthlySave = remaining > 0 ? (surplus > 0 ? surplus * 0.6 : 0) : 0;
-        
-        const term = Math.max(ctc * 10, exp * 12 * 15);
-        let health = 1000000;
-        if(age > 30) health = 1500000;
-        if(age > 45) health = 2000000;
-
-        const investAmt = remaining === 0 ? Math.max(0, surplus * 0.9) : 0;
-        let eq = 100 - age;
-        if(risk === 'Aggressive') eq += 10;
-        if(risk === 'Conservative') eq -= 10;
-        eq = Math.min(Math.max(eq, 20), 90);
-
-        return { target, remaining, months: monthlySave > 0 ? Math.ceil(remaining/monthlySave) : 0, term, health, investAmt, eq };
-    }
-
     function renderRoadmap(r) {
-        document.getElementById('out-ef-target').innerText = format(r.target);
-        document.getElementById('out-ef-time').innerText = r.months + " Months";
-
-        const p1 = document.getElementById('phase-1');
-        const p2 = document.getElementById('phase-2');
-        const p3 = document.getElementById('phase-3');
-
-        if(r.remaining > 0) {
-            p1.className = "roadmap-item active";
-            document.getElementById('status-1').innerText = "ACTIVE";
-            p2.className = "roadmap-item locked";
-            p3.className = "roadmap-item locked";
-            document.getElementById('content-2').classList.add('hidden');
-            document.getElementById('content-3').classList.add('hidden');
+        document.getElementById('out-ef-target').innerText = format(r.targetEF);
+        document.getElementById('out-ef-invest').innerText = format(r.monthlyEFInvest);
+        document.getElementById('out-ef-time').innerText = r.monthsToEF + " Months";
+        const p1 = document.getElementById('phase-1'), p2 = document.getElementById('phase-2'), p3 = document.getElementById('phase-3');
+        if(r.remainingEF > 0) {
+            p1.className = "roadmap-item active"; document.getElementById('status-1').innerText = "ACTIVE";
+            p2.className = "roadmap-item locked"; p3.className = "roadmap-item locked";
+            document.getElementById('content-2').classList.add('hidden'); document.getElementById('content-3').classList.add('hidden');
         } else {
-            p1.className = "roadmap-item completed";
-            document.getElementById('status-1').innerText = "DONE";
-            p2.className = "roadmap-item active";
-            document.getElementById('status-2').innerText = "ACTION";
+            p1.className = "roadmap-item completed"; document.getElementById('status-1').innerText = "DONE";
+            p2.className = "roadmap-item active"; document.getElementById('status-2').innerText = "ACTION";
             document.getElementById('status-2').style.background = "var(--accent)";
             document.getElementById('content-2').classList.remove('hidden');
-            document.getElementById('out-term').innerText = format(r.term);
-            document.getElementById('out-health').innerText = format(r.health);
-            
-            p3.className = "roadmap-item active";
-            document.getElementById('status-3').innerText = "INVEST";
+            document.getElementById('out-term').innerText = format(r.term); document.getElementById('out-health').innerText = format(r.health);
+            p3.className = "roadmap-item active"; document.getElementById('status-3').innerText = "INVEST";
             document.getElementById('status-3').style.background = "var(--secondary)";
-            document.getElementById('content-3').classList.remove('hidden');
-            document.getElementById('out-sip').innerText = format(r.investAmt);
+            document.getElementById('content-3').classList.remove('hidden'); document.getElementById('out-sip').innerText = format(r.investAmt);
         }
     }
 
     function renderCharts(inhand, pf, tax, tN, tO, r) {
         const textCol = state.theme === 'dark' ? '#94a3b8' : '#64748b';
-        
         if(state.charts.tax) state.charts.tax.destroy();
         state.charts.tax = new Chart(document.getElementById('taxChart'), {
             type: 'bar',
-            data: {
-                labels: ['New', 'Old'],
-                datasets: [{
-                    data: [tN, tO],
-                    backgroundColor: [tN <= tO ? '#6366f1' : '#1e293b', tO < tN ? '#6366f1' : '#1e293b']
-                }]
-            },
-            options: { 
-                plugins: { legend: { display: false } }, 
-                scales: { y: { display: false }, x: { grid: { display: false }, ticks: { color: textCol } } } 
-            }
+            data: { labels: ['New', 'Old'], datasets: [{ data: [tN, tO], backgroundColor: [tN <= tO ? '#6366f1' : '#1e293b', tO < tN ? '#6366f1' : '#1e293b'] }] },
+            options: { plugins: { legend: { display: false } }, scales: { y: { display: false }, x: { grid: { display: false }, ticks: { color: textCol } } }, maintainAspectRatio: false }
         });
-
         if(state.charts.dist) state.charts.dist.destroy();
         state.charts.dist = new Chart(document.getElementById('distChart'), {
             type: 'doughnut',
-            data: {
-                labels: ['In-Hand', 'Tax', 'PF'],
-                datasets: [{
-                    data: [inhand, tax/12, pf],
-                    backgroundColor: ['#10b981', '#ef4444', '#6366f1'],
-                    borderWidth: 0
-                }]
-            },
-            options: { cutout: '75%', plugins: { legend: { position: 'bottom', labels: { color: textCol, boxWidth: 10 } } } }
+            data: { labels: ['In-Hand', 'Tax', 'PF'], datasets: [{ data: [inhand, tax/12, pf], backgroundColor: ['#10b981', '#ef4444', '#6366f1'], borderWidth: 0 }] },
+            options: { cutout: '75%', plugins: { legend: { position: 'bottom', labels: { color: textCol, boxWidth: 10 } } }, maintainAspectRatio: false }
         });
-
         if(state.charts.inv) state.charts.inv.destroy();
         state.charts.inv = new Chart(document.getElementById('investChart'), {
             type: 'pie',
-            data: {
-                labels: ['Equity', 'Debt'],
-                datasets: [{
-                    data: [r.eq, 100 - r.eq],
-                    backgroundColor: ['#6366f1', '#1e293b'],
-                    borderWidth: 0
-                }]
-            },
-            options: { plugins: { legend: { position: 'right', labels: { color: textCol } } } }
+            data: { labels: ['Equity', 'Debt'], datasets: [{ data: [r.eq, 100 - r.eq], backgroundColor: ['#6366f1', '#1e293b'], borderWidth: 0 }] },
+            options: { plugins: { legend: { position: 'right', labels: { color: textCol } } }, maintainAspectRatio: false }
         });
     }
 
-    // REACTIVITY SCRIPT: Attach listeners to all inputs for real-time updates
     const inputs = document.querySelectorAll('input, select');
-    inputs.forEach(input => {
-        input.addEventListener('input', runIntelligence);
-    });
-
+    inputs.forEach(input => input.addEventListener('input', runIntelligence));
+    document.getElementById('manual-input').addEventListener('input', runIntelligence);
     window.onload = runIntelligence;
 </script>
 </body>
