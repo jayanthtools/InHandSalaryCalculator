@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "salary-calculator",
+  // wrangler.jsonc
+  "name": "finance",,
   "compatibility_date": "2026-05-19",
   "observability": {
     "enabled": true
