@@ -30,7 +30,7 @@
             --secondary: #10b981;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         [data-theme="light"] {
@@ -52,10 +52,17 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
+        /* Object fitting logic: Fixed height, no scroll */
+        html, body {
+            height: 100vh;
+            overflow: hidden;
+        }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
             transition: var(--transition);
         }
 
@@ -70,6 +77,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            flex-shrink: 0;
         }
 
         .brand-section {
@@ -92,25 +100,39 @@
             font-weight: 800;
         }
 
+        /* Modern Icon Theme Toggle */
         .theme-control {
             background: transparent;
             border: 1px solid var(--card-border);
             color: var(--text-main);
-            height: 38px;
+            height: 42px;
+            width: 42px;
             border-radius: 12px;
             cursor: pointer;
-            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .theme-control:hover {
+            border-color: var(--primary);
+            background: var(--card-border);
         }
 
         .wrapper-outer {
             width: 94%;
             max-width: 1250px;
             margin: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            padding-bottom: 2rem;
         }
 
         .portal-header {
             text-align: center;
-            margin: 4rem 0;
+            margin-bottom: 3rem;
         }
 
         .portal-header h1 {
@@ -151,12 +173,43 @@
             cursor: pointer;
             transition: var(--transition);
             text-decoration: none;
-            color: white;
+            color: var(--text-main);
+            position: relative;
+            overflow: hidden;
         }
 
         .tool-card:hover {
             border-color: var(--primary);
             transform: translateY(-5px);
+        }
+
+        /* Modern Hover Popup Overlay */
+        .card-popup {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transform: translateY(100%);
+            transition: var(--transition);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .tool-card:hover .card-popup {
+            transform: translateY(0);
+        }
+
+        .card-popup p {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-top: 5px;
+            opacity: 0.9;
         }
 
         .tool-card h3 {
@@ -185,20 +238,28 @@
         }
 
         footer {
-            padding:40px 20px;
-            text-align:center;
-            border-top:1px solid var(--card-border);
-            margin-top:50px;
+            padding: 20px 20px;
+            text-align: center;
+            border-top: 1px solid var(--card-border);
+            flex-shrink: 0;
         }
 
         footer a {
-            color:var(--text-muted);
-            text-decoration:none;
+            color: var(--text-muted);
+            text-decoration: none;
         }
 
         @media(max-width:900px){
             .portal-grid{
                 grid-template-columns:1fr;
+                gap: 1.5rem;
+            }
+            html, body {
+                overflow: auto;
+                height: auto;
+            }
+            .wrapper-outer {
+                margin-top: 2rem;
             }
         }
     </style>
@@ -212,7 +273,12 @@
         JG Intelligence
     </div>
 
-    <button class="theme-control" onclick="toggleTheme()">Theme</button>
+    <button class="theme-control" onclick="toggleTheme()" id="theme-btn">
+        <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Default Moon Icon for Dark Theme -->
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
 </nav>
 
 <div class="wrapper-outer">
@@ -231,6 +297,11 @@
 
             <a href="salary-calculator.html" class="tool-card">
                 <h3>In-hand Salary Calculator</h3>
+                <!-- Modern Hover Popup -->
+                <div class="card-popup">
+                    <h3>Launch Interface</h3>
+                    <p>Accurate FY 2026-27 Tax Logic →</p>
+                </div>
             </a>
         </div>
 
@@ -254,27 +325,35 @@
 
 <footer>
 
-<div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;">
+    <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;">
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/privacy-policy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/disclaimer.html">Disclaimer</a>
+    </div>
 
-<a href="/about.html">About</a>
-<a href="/contact.html">Contact</a>
-<a href="/privacy-policy.html">Privacy Policy</a>
-<a href="/terms.html">Terms</a>
-<a href="/disclaimer.html">Disclaimer</a>
-
-</div>
-
-<p style="margin-top:20px;color:var(--text-muted);font-size:14px;">
-© 2026 JG Intelligence. All rights reserved.
-</p>
+    <p style="margin-top:15px;color:var(--text-muted);font-size:14px;">
+        © 2026 JG Intelligence. All rights reserved.
+    </p>
 
 </footer>
 
 <script>
 function toggleTheme() {
     const body = document.body;
+    const icon = document.getElementById('theme-icon');
     const current = body.getAttribute('data-theme');
-    body.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+    const newTheme = current === 'dark' ? 'light' : 'dark';
+    
+    body.setAttribute('data-theme', newTheme);
+
+    // Dynamic SVG morphing
+    if (newTheme === 'light') {
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    } else {
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+    }
 }
 </script>
 
