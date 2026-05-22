@@ -48,7 +48,7 @@
             --primary: #4f46e5;
         }
 
-        html { font-size: 15px; }
+        html { font-size: 14px; } 
 
         * {
             box-sizing: border-box;
@@ -57,8 +57,11 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
+        /* --- PREVENT SCROLLING --- */
         html, body {
-            min-height: 100vh;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden; 
             background-color: var(--bg-color);
         }
 
@@ -67,10 +70,8 @@
             display: flex;
             flex-direction: column;
             transition: var(--transition);
-            overflow-x: hidden;
         }
 
-        /* --- INTERACTIVE SPOTLIGHT BACKGROUND --- */
         body::before {
             content: '';
             position: fixed;
@@ -86,31 +87,23 @@
         }
 
         .navbar {
-            padding: 0.8rem 5%;
+            padding: 0.5rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--card-border);
             background: var(--nav-bg);
             backdrop-filter: blur(15px);
-            position: sticky;
-            top: 0;
             z-index: 1000;
             flex-shrink: 0;
         }
 
-        .brand-section {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 800;
-            font-size: 1.25rem;
-        }
+        .brand-section { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.15rem; }
 
         .brand-logo {
-            width: 32px;
-            height: 32px;
-            background: var(--header-dynamic-color); /* Matches header color */
+            width: 30px;
+            height: 30px;
+            background: var(--header-dynamic-color);
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -124,136 +117,119 @@
             background: transparent;
             border: 1px solid var(--card-border);
             color: var(--text-main);
-            height: 42px;
-            width: 42px;
-            border-radius: 12px;
+            height: 34px;
+            width: 34px;
+            border-radius: 10px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: var(--transition);
         }
-        .theme-control:hover {
-            border-color: var(--primary);
-            background: var(--card-border);
-        }
 
         .wrapper-outer {
             width: 94%;
-            max-width: 1250px;
-            margin: 4rem auto;
+            max-width: 1100px;
+            margin: auto;
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
             z-index: 1;
         }
 
         .portal-header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 1.5rem;
         }
 
-        /* --- PROFESSIONAL DYNAMIC HEADER --- */
         .portal-header h1 {
-            font-size: 3.5rem;
+            font-size: 2.8rem;
             font-weight: 800;
-            letter-spacing: -2.5px;
+            letter-spacing: -2px;
             background: linear-gradient(to right, var(--header-dynamic-color), #a855f7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
+            margin-bottom: 0.4rem;
             transition: background 0.1s ease;
         }
 
         .portal-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 2.5rem;
         }
 
         .category-title {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             font-weight: 800;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             color: var(--primary);
             text-transform: uppercase;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             display: block;
         }
 
-        /* --- MODERN UNIFORM BUTTONS --- */
         .btn-base {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            padding: 1.5rem 1.8rem;
-            border-radius: 22px;
-            margin-bottom: 1.2rem;
+            padding: 1.1rem 1.6rem;
+            border-radius: 18px;
+            margin-bottom: 0.8rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-height: 85px; 
+            min-height: 68px; 
             width: 100%;
             transition: var(--transition);
-            position: relative;
             text-decoration: none;
-        }
-
-        /* --- ACTIVE MODERN HOVER --- */
-        .tool-card {
-            cursor: pointer;
             color: var(--text-main);
-            font-weight: 700;
+            position: relative;
         }
 
         .tool-card:hover {
             border-color: var(--header-dynamic-color);
-            transform: scale(1.02) translateY(-2px);
+            transform: translateY(-3px);
             background: var(--nav-bg);
-            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.4), 0 0 20px rgba(99, 102, 241, 0.1);
+            box-shadow: 0 10px 20px -10px rgba(0,0,0,0.5);
         }
 
-        .tool-card h3 {
-            font-size: 1.05rem;
-            letter-spacing: -0.3px;
-        }
+        .tool-card h3 { font-size: 0.95rem; font-weight: 700; }
 
-        /* --- BLUR MODE STYLING --- */
         .soon-item {
             color: var(--text-muted);
             font-weight: 600;
             cursor: default;
         }
 
-        .blur-text {
-            filter: blur(5px);
-            opacity: 0.4;
-            user-select: none;
-            pointer-events: none;
-        }
+        .blur-text { filter: blur(5px); opacity: 0.4; user-select: none; pointer-events: none; }
 
         .badge {
-            font-size: 0.65rem;
-            padding: 5px 12px;
-            border-radius: 8px;
+            font-size: 0.6rem;
+            padding: 3px 10px;
+            border-radius: 7px;
             font-weight: 800;
             text-transform: uppercase;
-            flex-shrink: 0;
         }
-
         .badge-soon { background: var(--card-border); color: var(--text-muted); }
-        .badge-active { background: var(--header-dynamic-color); color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .badge-active { background: var(--header-dynamic-color); color: white; }
 
         footer {
-            padding: 40px 20px;
+            padding: 1rem 5%;
             text-align: center;
             border-top: 1px solid var(--card-border);
-            margin-top: 2rem;
+            flex-shrink: 0;
+            z-index: 10;
+            font-size: 0.75rem;
         }
 
-        footer a { color: var(--text-muted); text-decoration: none; font-weight: 600; margin: 0 10px; }
-        footer a:hover { color: var(--primary); }
+        footer a { color: var(--text-muted); text-decoration: none; margin: 0 10px; font-weight: 600; font-size: 0.8rem; }
 
         @media(max-width:900px){
-            .portal-grid{ grid-template-columns:1fr; gap: 2rem; }
-            .portal-header h1 { font-size: 2.8rem; }
+            .portal-grid{ grid-template-columns:1fr; gap: 1rem; }
+            html, body { overflow: auto; height: auto; }
+            .wrapper-outer { margin: 2rem auto; }
+            .portal-header h1 { font-size: 2.2rem; }
         }
     </style>
 </head>
@@ -267,7 +243,7 @@
     </div>
 
     <button class="theme-control" onclick="toggleTheme()" id="theme-btn">
-        <svg id="theme-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg id="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
     </button>
@@ -277,7 +253,7 @@
 
     <header class="portal-header">
         <h1>JG Intelligence</h1>
-        <p style="color: var(--text-muted); font-size: 1.2rem; font-weight: 500;">
+        <p style="color: var(--text-muted); font-size: 1.1rem; font-weight: 500;">
             Standardized documentation and high-precision financial logic.
         </p>
     </header>
@@ -293,7 +269,7 @@
             </a>
 
             <a href="sip-calculator.html" class="btn-base tool-card">
-                <h3>Advanced SIP Matrix</h3>
+                <h3>Advanced SIP Calculator</h3>
                 <span class="badge badge-active">Live</span>
             </a>
 
@@ -311,14 +287,12 @@
         <div>
             <span class="category-title">Standardized Documents</span>
 
-            <!-- Revealed Template 1 -->
-            <div class="btn-base soon-item">
+            <div class="btn-base soon-item" style="border-style: dashed;">
                 Road Damage Issue Template
                 <span class="badge badge-soon">Soon</span>
             </div>
 
-            <!-- Revealed Template 2 -->
-            <div class="btn-base soon-item">
+            <div class="btn-base soon-item" style="border-style: dashed;">
                 Consumer Court Notice Draft
                 <span class="badge badge-soon">Soon</span>
             </div>
@@ -339,14 +313,14 @@
 </div>
 
 <footer>
-    <div style="margin-bottom: 20px;">
+    <div style="margin-bottom: 0.5rem;">
         <a href="/about.html">About</a>
         <a href="/contact.html">Contact</a>
-        <a href="/privacy-policy.html">Privacy Policy</a>
+        <a href="/privacy-policy.html">Privacy</a>
         <a href="/terms.html">Terms</a>
         <a href="/disclaimer.html">Disclaimer</a>
     </div>
-    <p style="color:var(--text-muted);font-size:14px; font-weight: 600;">
+    <p style="color:var(--text-muted); font-size:12px; font-weight: 600;">
         © 2026 JG Intelligence. All rights reserved.
     </p>
 </footer>
