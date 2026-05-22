@@ -58,8 +58,7 @@
         }
 
         html, body {
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
             background-color: var(--bg-color);
         }
 
@@ -68,6 +67,7 @@
             display: flex;
             flex-direction: column;
             transition: var(--transition);
+            overflow-x: hidden;
         }
 
         /* --- INTERACTIVE SPOTLIGHT BACKGROUND --- */
@@ -141,18 +141,14 @@
         .wrapper-outer {
             width: 94%;
             max-width: 1250px;
-            margin: auto;
+            margin: 4rem auto;
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center; 
-            padding-bottom: 2rem;
             z-index: 1;
         }
 
         .portal-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
         }
 
         /* --- PROFESSIONAL DYNAMIC HEADER --- */
@@ -160,7 +156,6 @@
             font-size: 3.5rem;
             font-weight: 800;
             letter-spacing: -2.5px;
-            /* Gradient shifts color professionally based on mouse movement */
             background: linear-gradient(to right, var(--header-dynamic-color), #a855f7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -181,83 +176,84 @@
             color: var(--primary);
             text-transform: uppercase;
             margin-bottom: 2rem;
+            display: block;
         }
 
-        /* --- BUTTONS MODIFIED TO MATCH TEMPLATE SIZE --- */
-        .tool-card {
+        /* --- MODERN UNIFORM BUTTONS --- */
+        .btn-base {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            padding: 1.4rem; /* Matched to soon-item */
-            border-radius: 20px; /* Matched to soon-item */
-            margin-bottom: 1rem;
+            padding: 1.5rem 1.8rem;
+            border-radius: 22px;
+            margin-bottom: 1.2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            min-height: 85px; 
+            width: 100%;
+            transition: var(--transition);
+            position: relative;
+            text-decoration: none;
+        }
+
+        /* --- ACTIVE MODERN HOVER --- */
+        .tool-card {
+            cursor: pointer;
             color: var(--text-main);
             font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
         }
 
         .tool-card:hover {
             border-color: var(--header-dynamic-color);
-            transform: translateX(5px);
+            transform: scale(1.02) translateY(-2px);
             background: var(--nav-bg);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.4), 0 0 20px rgba(99, 102, 241, 0.1);
         }
 
         .tool-card h3 {
-            font-size: 1rem;
-            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: -0.3px;
         }
 
+        /* --- BLUR MODE STYLING --- */
         .soon-item {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            padding: 1.4rem;
-            border-radius: 20px;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             color: var(--text-muted);
-            font-weight: 700;
+            font-weight: 600;
+            cursor: default;
         }
 
-        .badge-soon {
-            font-size: 0.65rem;
-            padding: 4px 10px;
-            border-radius: 8px;
-            background: var(--card-border);
+        .blur-text {
+            filter: blur(5px);
+            opacity: 0.4;
+            user-select: none;
+            pointer-events: none;
         }
 
-        .badge-active {
+        .badge {
             font-size: 0.65rem;
-            padding: 4px 10px;
+            padding: 5px 12px;
             border-radius: 8px;
-            background: var(--header-dynamic-color);
-            color: white;
+            font-weight: 800;
+            text-transform: uppercase;
+            flex-shrink: 0;
         }
+
+        .badge-soon { background: var(--card-border); color: var(--text-muted); }
+        .badge-active { background: var(--header-dynamic-color); color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
         footer {
-            padding: 20px 20px;
+            padding: 40px 20px;
             text-align: center;
             border-top: 1px solid var(--card-border);
-            flex-shrink: 0;
-            z-index: 10;
+            margin-top: 2rem;
         }
 
-        footer a {
-            color: var(--text-muted);
-            text-decoration: none;
-        }
+        footer a { color: var(--text-muted); text-decoration: none; font-weight: 600; margin: 0 10px; }
+        footer a:hover { color: var(--primary); }
 
         @media(max-width:900px){
-            .portal-grid{ grid-template-columns:1fr; gap: 1.5rem; }
-            html, body { overflow: auto; height: auto; }
-            .wrapper-outer { margin-top: 2rem; }
+            .portal-grid{ grid-template-columns:1fr; gap: 2rem; }
+            .portal-header h1 { font-size: 2.8rem; }
         }
     </style>
 </head>
@@ -281,38 +277,60 @@
 
     <header class="portal-header">
         <h1>JG Intelligence</h1>
-        <p style="color: var(--text-muted);">
-            Standardized documentation and advanced financial intelligence.
+        <p style="color: var(--text-muted); font-size: 1.2rem; font-weight: 500;">
+            Standardized documentation and high-precision financial logic.
         </p>
     </header>
 
     <div class="portal-grid">
 
         <div>
-            <h2 class="category-title">Financials</h2>
+            <span class="category-title">Financial Intelligence</span>
 
-            <a href="salary-calculator.html" class="tool-card">
+            <a href="salary-calculator.html" class="btn-base tool-card">
                 <h3>In-hand Salary Calculator</h3>
-                <span class="badge-active">LIVE</span>
+                <span class="badge badge-active">Live</span>
             </a>
 
-            <a href="sip-calculator.html" class="tool-card">
-                <h3>SIP Calculator</h3>
-                <span class="badge-active">NEW</span>
+            <a href="sip-calculator.html" class="btn-base tool-card">
+                <h3>Advanced SIP Matrix</h3>
+                <span class="badge badge-active">Live</span>
             </a>
+
+            <div class="btn-base soon-item">
+                <span class="blur-text">Lumpsum Wealth Estimator</span>
+                <span class="badge badge-soon">Soon</span>
+            </div>
+
+            <div class="btn-base soon-item">
+                <span class="blur-text">Home Loan Reality Check</span>
+                <span class="badge badge-soon">Soon</span>
+            </div>
         </div>
 
         <div>
-            <h2 class="category-title">Documents - Templates</h2>
+            <span class="category-title">Standardized Documents</span>
 
-            <div class="soon-item">
+            <!-- Revealed Template 1 -->
+            <div class="btn-base soon-item">
                 Road Damage Issue Template
-                <span class="badge-soon">SOON</span>
+                <span class="badge badge-soon">Soon</span>
             </div>
 
-            <div class="soon-item">
-                Police Complaint Template
-                <span class="badge-soon">SOON</span>
+            <!-- Revealed Template 2 -->
+            <div class="btn-base soon-item">
+                Consumer Court Notice Draft
+                <span class="badge badge-soon">Soon</span>
+            </div>
+
+            <div class="btn-base soon-item">
+                <span class="blur-text">Electricity Usage Tracker</span>
+                <span class="badge badge-soon">Soon</span>
+            </div>
+
+            <div class="btn-base soon-item">
+                <span class="blur-text">RTI Application Format</span>
+                <span class="badge badge-soon">Soon</span>
             </div>
         </div>
 
@@ -321,19 +339,16 @@
 </div>
 
 <footer>
-
-    <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;">
+    <div style="margin-bottom: 20px;">
         <a href="/about.html">About</a>
         <a href="/contact.html">Contact</a>
         <a href="/privacy-policy.html">Privacy Policy</a>
         <a href="/terms.html">Terms</a>
         <a href="/disclaimer.html">Disclaimer</a>
     </div>
-
-    <p style="margin-top:15px;color:var(--text-muted);font-size:14px;">
+    <p style="color:var(--text-muted);font-size:14px; font-weight: 600;">
         © 2026 JG Intelligence. All rights reserved.
     </p>
-
 </footer>
 
 <script>
@@ -342,12 +357,10 @@ document.addEventListener('mousemove', (e) => {
     const x = e.clientX;
     const y = e.clientY;
     
-    // Update CSS variables for Spotlight
     document.documentElement.style.setProperty('--mouse-x', x + 'px');
     document.documentElement.style.setProperty('--mouse-y', y + 'px');
     
-    // Professional Color Shift: Map mouse X to a hue range (Indigo to Blue/Teal)
-    const hue = 230 + (x / window.innerWidth) * 40; // Range between 230 and 270
+    const hue = 230 + (x / window.innerWidth) * 40; 
     const dynamicColor = `hsl(${hue}, 80%, 65%)`;
     
     document.documentElement.style.setProperty('--header-dynamic-color', dynamicColor);
