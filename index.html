@@ -22,17 +22,17 @@
 
     <style>
         :root {
-            /* --- DARK MODE --- */
-            --bg-color: #020617;
-            --nav-bg: #020617;
-            --card-bg: #0f172a;
-            --card-border: #1e293b;
+            /* --- REFINED DARK MODE (Glassmorphism & Depth) --- */
+            --bg-color: #050a18; /* Deep Midnight instead of Black */
+            --nav-bg: rgba(5, 10, 24, 0.8);
+            --card-bg: rgba(30, 41, 59, 0.45); /* Translucent glass */
+            --card-border: rgba(255, 255, 255, 0.08);
             --primary: #818cf8;
             --secondary: #10b981;
-            --text-main: #ffffff;
+            --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --card-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.4);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             
             --mouse-x: 50%;
             --mouse-y: 50%;
@@ -42,19 +42,18 @@
 
         [data-theme="light"] {
             /* --- REFINED LIGHT MODE --- */
-            --bg-color: #f8fafc;
-            --nav-bg: #ffffff;
-            --card-bg: #ffffff;
-            --card-border: #cbd5e1;
+            --bg-color: #f1f5f9;
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --card-border: rgba(15, 23, 42, 0.12);
             --primary: #4f46e5;
             --secondary: #059669;
             --text-main: #0f172a;
-            --text-muted: #334155;
-            --card-shadow: 0 4px 15px -3px rgba(15, 23, 42, 0.1);
+            --text-muted: #475569;
+            --card-shadow: 0 8px 30px -10px rgba(15, 23, 42, 0.12);
             --spotlight: rgba(79, 70, 229, 0.08);
         }
 
-        /* INCREASED FONT SIZE BY ONE POINT (15px) */
         html { font-size: 15px; } 
 
         * {
@@ -64,7 +63,6 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        /* --- PREVENT SCROLLING --- */
         html, body {
             height: 100vh;
             width: 100vw;
@@ -77,6 +75,8 @@
             display: flex;
             flex-direction: column;
             transition: var(--transition);
+            /* Gradient background to lift the dark theme */
+            background-image: radial-gradient(at 0% 0%, rgba(30, 41, 59, 0.4) 0px, transparent 50%);
         }
 
         body::before {
@@ -85,7 +85,7 @@
             top: 0; left: 0;
             width: 100%; height: 100%;
             background: radial-gradient(
-                circle 450px at var(--mouse-x) var(--mouse-y), 
+                circle 550px at var(--mouse-x) var(--mouse-y), 
                 var(--spotlight), 
                 transparent 80%
             );
@@ -94,14 +94,14 @@
         }
 
         .navbar {
-            height: 48px; /* Slightly adjusted for 15px base */
+            height: 50px;
             padding: 0 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--card-border);
             background: var(--nav-bg);
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
             z-index: 1000;
             flex-shrink: 0;
         }
@@ -112,22 +112,23 @@
             width: 28px;
             height: 28px;
             background: var(--header-dynamic-color);
-            border-radius: 6px;
+            border-radius: 7px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: 800;
             transition: background 0.1s ease;
+            box-shadow: 0 0 15px var(--header-dynamic-color);
         }
 
         .theme-control {
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--card-border);
             color: var(--text-main);
             height: 32px;
             width: 32px;
-            border-radius: 8px;
+            border-radius: 9px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -136,7 +137,7 @@
         }
 
         .wrapper-outer {
-            width: 92%;
+            width: 94%;
             max-width: 1100px;
             margin: auto;
             flex: 1;
@@ -144,110 +145,119 @@
             flex-direction: column;
             justify-content: center; 
             z-index: 1;
-            padding: 0.4rem 0; /* Tightened padding for no-scroll */
         }
 
         .portal-header {
             text-align: center;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
         }
 
         .portal-header h1 {
-            font-size: 2.6rem;
+            font-size: 3rem;
             font-weight: 800;
             letter-spacing: -2.5px;
-            background: linear-gradient(to right, var(--header-dynamic-color), #a855f7);
+            background: linear-gradient(to right, var(--text-main) 20%, var(--header-dynamic-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.4rem;
             transition: background 0.1s ease;
         }
 
         .portal-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2.5rem;
+            gap: 3rem;
         }
 
         .category-title {
-            font-size: 0.65rem;
+            font-size: 0.75rem;
             font-weight: 800;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             color: var(--primary);
             text-transform: uppercase;
-            margin-bottom: 0.8rem;
+            margin-bottom: 1.2rem;
             display: block;
+            opacity: 0.9;
         }
 
+        /* --- MODERN GLASS CARDS --- */
         .btn-base {
             background: var(--card-bg);
-            border: 1.5px solid var(--card-border);
-            padding: 0.85rem 1.4rem; /* Adjusted for 15px font */
-            border-radius: 16px;
-            margin-bottom: 0.7rem;
+            border: 1px solid var(--card-border);
+            padding: 1.1rem 1.6rem;
+            border-radius: 22px;
+            margin-bottom: 0.8rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-height: 56px; /* Uniform height */
+            min-height: 62px; 
             width: 100%;
             transition: var(--transition);
             text-decoration: none;
             color: var(--text-main);
             position: relative;
             box-shadow: var(--card-shadow);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
         }
 
         .tool-card:hover {
             border-color: var(--header-dynamic-color);
-            transform: translateY(-2px);
-            background: var(--nav-bg);
-            box-shadow: 0 8px 15px -8px rgba(0,0,0,0.3);
+            transform: translateY(-4px) scale(1.01);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 15px 35px -10px var(--header-dynamic-color);
+        }
+        
+        [data-theme="light"] .tool-card:hover {
+            background: white;
+            box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.2);
         }
 
-        .tool-card h3 { font-size: 1rem; font-weight: 700; }
+        .tool-card h3 { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.2px; }
 
         .soon-item {
             color: var(--text-muted);
             font-weight: 700;
             cursor: default;
-            background: rgba(0,0,0,0.03);
             border-style: dashed;
         }
 
-        .blur-text { filter: blur(5px); opacity: 0.5; user-select: none; pointer-events: none; }
+        .blur-text { filter: blur(6px); opacity: 0.4; user-select: none; pointer-events: none; }
 
         .badge {
             font-size: 0.6rem;
-            padding: 2px 8px;
-            border-radius: 6px;
+            padding: 4px 12px;
+            border-radius: 8px;
             font-weight: 800;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .badge-soon { background: var(--card-border); color: var(--text-muted); }
         .badge-active { 
             background: var(--header-dynamic-color); 
             color: white; 
+            box-shadow: 0 5px 12px -2px var(--header-dynamic-color);
         }
 
         footer {
-            padding: 0.8rem 5%;
+            padding: 1.2rem 5%;
             text-align: center;
             border-top: 1px solid var(--card-border);
             flex-shrink: 0;
             z-index: 10;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             background: var(--nav-bg);
+            backdrop-filter: blur(10px);
         }
 
-        .footer-links { margin-bottom: 0.3rem; }
-        .footer-links a { color: var(--text-muted); text-decoration: none; font-weight: 700; margin: 0 8px; font-size: 0.85rem; }
-        .footer-links a:hover { color: var(--primary); }
+        footer a { color: var(--text-muted); text-decoration: none; font-weight: 700; margin: 0 10px; font-size: 0.85rem; transition: var(--transition); }
+        footer a:hover { color: var(--text-main); }
 
         @media(max-width:800px){
-            .portal-grid{ grid-template-columns:1fr; gap: 0.5rem; }
+            .portal-grid{ grid-template-columns:1fr; gap: 0.8rem; }
             html, body { overflow: auto; height: auto; }
-            .wrapper-outer { margin: 1rem auto; height: auto; }
-            .portal-header h1 { font-size: 2.2rem; }
+            .wrapper-outer { margin: 2rem auto; height: auto; }
+            .portal-header h1 { font-size: 2.4rem; }
         }
     </style>
 </head>
@@ -331,7 +341,7 @@
 </div>
 
 <footer>
-    <div class="footer-links">
+    <div style="margin-bottom: 0.4rem;">
         <a href="/about.html">About</a>
         <a href="/contact.html">Contact</a>
         <a href="/privacy-policy.html">Privacy</a>
@@ -348,10 +358,14 @@
 document.addEventListener('mousemove', (e) => {
     const x = e.clientX;
     const y = e.clientY;
+    
     document.documentElement.style.setProperty('--mouse-x', x + 'px');
     document.documentElement.style.setProperty('--mouse-y', y + 'px');
+    
+    // Smooth professional color range
     const hue = 230 + (x / window.innerWidth) * 35; 
     const dynamicColor = `hsl(${hue}, 80%, 65%)`;
+    
     document.documentElement.style.setProperty('--header-dynamic-color', dynamicColor);
 });
 
@@ -360,7 +374,9 @@ function toggleTheme() {
     const icon = document.getElementById('theme-icon');
     const current = body.getAttribute('data-theme');
     const newTheme = current === 'dark' ? 'light' : 'dark';
+    
     body.setAttribute('data-theme', newTheme);
+
     if (newTheme === 'light') {
         icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
     } else {
